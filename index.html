@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesedi's Math Game</title>
     <style>
+        /* SIMPLE STYLES - SCROLLING WILL WORK */
         * {
             margin: 0;
             padding: 0;
@@ -12,34 +13,32 @@
         }
 
         body {
+            background: #1e3c72;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            padding: 20px;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            padding: 15px;
-            transition: all 0.3s;
+            /* SCROLLING IS ENABLED */
+            overflow-y: auto;
         }
 
-        /* SIMPLE THEME BACKGROUNDS */
-        body.theme-avengers { background: linear-gradient(135deg, #1e3c72, #2a5298); }
-        body.theme-spider { background: linear-gradient(135deg, #1a1a2e, #16213e); }
-        body.theme-roblox { background: linear-gradient(135deg, #cc0000, #8b0000); }
-        body.theme-minecraft { background: #8B5A2B; }
-
         .game-box {
-            max-width: 900px;
+            max-width: 800px;
             width: 100%;
-            background: rgba(255, 240, 200, 0.98);
-            border-radius: 60px;
-            box-shadow: 0 20px 0 #6a3e10;
+            background: #fff9e6;
+            border-radius: 50px;
             padding: 30px 25px;
             border: 5px solid #ffb82e;
-            text-align: center;
+            box-shadow: 0 20px 0 #6a3e10;
+            /* SCROLLING IS ENABLED */
+            max-height: none;
+            overflow: visible;
         }
 
         /* SOUND BUTTON */
-        .sound-btn {
+        .sound-button {
             background: #ff6b6b;
             color: white;
             font-size: 2rem;
@@ -48,12 +47,11 @@
             border: 5px solid yellow;
             margin-bottom: 20px;
             cursor: pointer;
-            font-weight: bold;
+            text-align: center;
         }
-        .sound-btn.ready { background: #2ecc71; }
 
         /* THEME BUTTONS */
-        .theme-row {
+        .theme-buttons {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -61,7 +59,7 @@
             margin-bottom: 25px;
         }
         .theme-btn {
-            padding: 12px 20px;
+            padding: 12px 25px;
             font-size: 1.5rem;
             border-radius: 50px;
             border: 4px solid white;
@@ -69,13 +67,13 @@
             cursor: pointer;
             color: white;
         }
-        .theme-btn.avengers { background: #e23636; }
-        .theme-btn.spider { background: #02458b; }
-        .theme-btn.roblox { background: #cc0000; }
-        .theme-btn.minecraft { background: #4caf50; }
+        .avengers-btn { background: #e23636; }
+        .spider-btn { background: #02458b; }
+        .roblox-btn { background: #cc0000; }
+        .minecraft-btn { background: #4caf50; }
 
-        /* PHOTO SECTION - SIMPLE AND CLEAN */
-        .photo-section {
+        /* PHOTO SECTION - THIS WILL WORK */
+        .photo-area {
             background: #ffd966;
             padding: 20px;
             border-radius: 100px;
@@ -85,9 +83,9 @@
             align-items: center;
             justify-content: center;
             gap: 20px;
+            flex-wrap: wrap;
         }
 
-        /* PHOTO FRAME - GUARANTEED TO WORK */
         .photo-frame {
             width: 140px;
             height: 140px;
@@ -95,20 +93,16 @@
             border: 8px solid #f39c12;
             background: white;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        /* LESEDI'S PHOTO - THIS WILL WORK */
+        /* LESEDI'S PHOTO - SIMPLE AND CLEAN */
         .photo-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
         }
 
-        .photo-name {
+        .photo-text {
             font-size: 2.2rem;
             background: #2c3e50;
             color: white;
@@ -118,7 +112,7 @@
         }
 
         /* THEME DISPLAY */
-        .theme-display {
+        .theme-show {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -129,13 +123,12 @@
             border-radius: 60px;
         }
         .theme-icon { font-size: 4rem; }
-        .theme-name {
+        .theme-title {
             font-size: 2.8rem;
             font-weight: bold;
             padding: 10px 35px;
             border-radius: 60px;
             color: white;
-            text-shadow: 3px 3px 0 black;
         }
 
         /* SCORES */
@@ -149,14 +142,14 @@
             color: #ffde9e;
             font-size: 1.8rem;
         }
-        .score-box {
+        .stat-box {
             background: #0d0628;
             padding: 8px 25px;
             border-radius: 40px;
             border: 3px solid #ffbb2e;
         }
 
-        /* MATH QUESTION */
+        /* QUESTION */
         .question-box {
             background: #fee3a2;
             padding: 20px;
@@ -165,22 +158,22 @@
             margin-bottom: 30px;
             box-shadow: 0 12px 0 #a63f0e;
         }
-        .equation {
+        .question-text {
             font-size: 6rem;
             font-weight: 800;
             color: #1f3a3f;
-            text-shadow: 5px 5px 0 #f5b457;
+            text-align: center;
         }
 
-        /* INPUT AREA */
-        .input-area {
+        /* INPUT */
+        .input-row {
             display: flex;
             justify-content: center;
             gap: 15px;
             margin: 20px 0;
             flex-wrap: wrap;
         }
-        .answer-input {
+        .number-input {
             font-size: 3.5rem;
             width: 200px;
             text-align: center;
@@ -189,7 +182,7 @@
             background: #fefad0;
             padding: 5px;
         }
-        .check-btn {
+        .ok-button {
             background: #f04f30;
             font-size: 2.8rem;
             padding: 15px 40px;
@@ -199,9 +192,8 @@
             box-shadow: 0 10px 0 #952d0c;
             cursor: pointer;
         }
-        .check-btn:active { transform: translateY(7px); }
 
-        .message {
+        .message-area {
             font-size: 2.2rem;
             padding: 15px;
             background: #c2e0c2;
@@ -210,7 +202,7 @@
             border: 4px solid #3d9e4b;
             min-height: 90px;
         }
-        .next-btn {
+        .next-button {
             background: #2d7f9e;
             font-size: 2.4rem;
             padding: 12px 45px;
@@ -219,248 +211,251 @@
             border: none;
             box-shadow: 0 9px 0 #124f66;
             cursor: pointer;
+            margin-top: 10px;
         }
-        .next-btn:disabled { opacity: 0.5; pointer-events: none; }
+        .next-button:disabled { opacity: 0.5; }
     </style>
 </head>
-<body class="theme-avengers" id="mainBody">
+<body>
     <div class="game-box">
         <!-- SOUND BUTTON -->
-        <div class="sound-btn" id="soundBtn">🔊 TAP HERE FOR SOUND</div>
+        <div class="sound-button" id="soundBtn">🔊 TAP HERE FOR SOUND</div>
 
         <!-- THEME BUTTONS -->
-        <div class="theme-row">
-            <button class="theme-btn avengers" data-theme="avengers">🦸 AVENGERS</button>
-            <button class="theme-btn spider" data-theme="spider">🕷️ SPIDER-MAN</button>
-            <button class="theme-btn roblox" data-theme="roblox">🎮 ROBLOX</button>
-            <button class="theme-btn minecraft" data-theme="minecraft">⛏️ MINECRAFT</button>
+        <div class="theme-buttons">
+            <button class="theme-btn avengers-btn" onclick="changeTheme('avengers')">🦸 AVENGERS</button>
+            <button class="theme-btn spider-btn" onclick="changeTheme('spider')">🕷️ SPIDER-MAN</button>
+            <button class="theme-btn roblox-btn" onclick="changeTheme('roblox')">🎮 ROBLOX</button>
+            <button class="theme-btn minecraft-btn" onclick="changeTheme('minecraft')">⛏️ MINECRAFT</button>
         </div>
 
-        <!-- LESEDI'S PHOTO - GUARANTEED TO WORK -->
-        <div class="photo-section">
+        <!-- LESEDI'S PHOTO - THIS IS THE PHOTO LINE -->
+        <div class="photo-area">
             <div class="photo-frame">
-                <!-- THIS IS THE PHOTO LINE - IT WILL WORK NOW -->
                 <img src="lesedi-face.jpg" alt="Lesedi" id="lesediPhoto">
             </div>
-            <div class="photo-name">LESEDI ⭐</div>
+            <div class="photo-text">LESEDI ⭐</div>
         </div>
 
-        <!-- THEME HEADER -->
-        <div class="theme-display">
+        <!-- THEME DISPLAY -->
+        <div class="theme-show">
             <span class="theme-icon" id="themeIcon">🦸</span>
-            <div class="theme-name" id="themeName" style="background: #e23636;">AVENGERS</div>
+            <div class="theme-title" id="themeTitle" style="background: #e23636;">AVENGERS</div>
         </div>
 
         <!-- SCORES -->
         <div class="stats">
-            <div class="score-box" id="scoreDisplay">🏆 0</div>
-            <div class="score-box" id="streakDisplay">🔥 0</div>
+            <div class="stat-box" id="scoreDisplay">🏆 0</div>
+            <div class="stat-box" id="streakDisplay">🔥 0</div>
         </div>
 
-        <!-- MATH QUESTION -->
+        <!-- QUESTION -->
         <div class="question-box">
-            <div class="equation" id="questionText">2 + 2</div>
+            <div class="question-text" id="questionText">2 + 2</div>
         </div>
 
-        <!-- ANSWER AREA -->
-        <div class="input-area">
-            <input type="number" id="answerInput" class="answer-input" placeholder="?">
-            <button class="check-btn" id="checkBtn">✔️ OK</button>
+        <!-- ANSWER -->
+        <div class="input-row">
+            <input type="number" id="answerInput" class="number-input" placeholder="?">
+            <button class="ok-button" id="checkBtn">✔️ OK</button>
         </div>
 
-        <div class="message" id="messageBox">Choose a theme to begin!</div>
-        <button class="next-btn" id="nextBtn" disabled>➡️ Next</button>
+        <div class="message-area" id="messageBox">Welcome Lesedi! 👋</div>
+        <button class="next-button" id="nextBtn" disabled>➡️ NEXT</button>
     </div>
 
     <script>
-        // SIMPLE AND CLEAN - PHOTO WILL WORK
-        (function() {
-            // Sound setup
-            let soundsOn = false;
-            let correct, wrong, streak;
+        // SUPER SIMPLE CODE - EVERYTHING WILL WORK
+
+        // SOUND SETUP
+        let soundEnabled = false;
+        let audioCtx = null;
+        
+        document.getElementById('soundBtn').onclick = function() {
+            soundEnabled = true;
+            this.innerHTML = '🔊 SOUND READY! 🎉';
+            this.style.background = '#2ecc71';
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        };
+
+        function playCorrect() {
+            if (!soundEnabled || !audioCtx) return;
+            audioCtx.resume();
+            let osc = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.value = 880;
+            gain.gain.value = 0.2;
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            osc.connect(gain).connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.3);
+        }
+
+        function playWrong() {
+            if (!soundEnabled || !audioCtx) return;
+            audioCtx.resume();
+            let osc = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.value = 340;
+            gain.gain.value = 0.15;
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+            osc.connect(gain).connect(audioCtx.destination);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.25);
+        }
+
+        function playStreak() {
+            if (!soundEnabled || !audioCtx) return;
+            audioCtx.resume();
+            let osc1 = audioCtx.createOscillator();
+            let gain1 = audioCtx.createGain();
+            osc1.frequency.value = 1046.5;
+            gain1.gain.value = 0.2;
+            gain1.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+            osc1.connect(gain1).connect(audioCtx.destination);
+            osc1.start();
+            osc1.stop(audioCtx.currentTime + 0.15);
             
-            document.getElementById('soundBtn').onclick = function() {
-                soundsOn = true;
-                this.innerHTML = '🔊 SOUNDS READY! 🎉';
-                this.style.background = '#2ecc71';
-                
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                const ctx = new AudioContext();
-                
-                correct = function() {
-                    const o = ctx.createOscillator();
-                    const g = ctx.createGain();
-                    o.type = 'sine';
-                    o.frequency.value = 880;
-                    g.gain.value = 0.2;
-                    g.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
-                    o.connect(g).connect(ctx.destination);
-                    o.start();
-                    o.stop(ctx.currentTime + 0.3);
-                };
-                
-                wrong = function() {
-                    const o = ctx.createOscillator();
-                    const g = ctx.createGain();
-                    o.type = 'sawtooth';
-                    o.frequency.value = 340;
-                    g.gain.value = 0.15;
-                    g.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
-                    o.connect(g).connect(ctx.destination);
-                    o.start();
-                    o.stop(ctx.currentTime + 0.25);
-                };
-                
-                streak = function() {
-                    const o1 = ctx.createOscillator();
-                    const g1 = ctx.createGain();
-                    o1.frequency.value = 1046.5;
-                    g1.gain.value = 0.2;
-                    g1.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
-                    o1.connect(g1).connect(ctx.destination);
-                    o1.start();
-                    o1.stop(ctx.currentTime + 0.15);
-                    
-                    const o2 = ctx.createOscillator();
-                    const g2 = ctx.createGain();
-                    o2.frequency.value = 1318.5;
-                    g2.gain.value = 0.2;
-                    g2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
-                    o2.connect(g2).connect(ctx.destination);
-                    o2.start(ctx.currentTime + 0.1);
-                    o2.stop(ctx.currentTime + 0.3);
-                };
-            };
+            let osc2 = audioCtx.createOscillator();
+            let gain2 = audioCtx.createGain();
+            osc2.frequency.value = 1318.5;
+            gain2.gain.value = 0.2;
+            gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+            osc2.connect(gain2).connect(audioCtx.destination);
+            osc2.start(audioCtx.currentTime + 0.1);
+            osc2.stop(audioCtx.currentTime + 0.3);
+        }
 
-            // Game variables
-            let score = 0;
-            let streakCount = 0;
-            let currentQuestion = { text: '2 + 2', answer: 4 };
-            let awaitingNext = false;
+        // GAME VARIABLES
+        let score = 0;
+        let streak = 0;
+        let currentAnswer = 4;
+        let waitingForNext = false;
 
-            // DOM elements
-            const body = document.getElementById('mainBody');
-            const themeIcon = document.getElementById('themeIcon');
-            const themeName = document.getElementById('themeName');
-            const question = document.getElementById('questionText');
-            const answer = document.getElementById('answerInput');
-            const check = document.getElementById('checkBtn');
-            const next = document.getElementById('nextBtn');
-            const message = document.getElementById('messageBox');
-            const scoreDisplay = document.getElementById('scoreDisplay');
-            const streakDisplay = document.getElementById('streakDisplay');
+        // GET ELEMENTS
+        const themeIcon = document.getElementById('themeIcon');
+        const themeTitle = document.getElementById('themeTitle');
+        const questionEl = document.getElementById('questionText');
+        const answerInput = document.getElementById('answerInput');
+        const checkBtn = document.getElementById('checkBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const messageEl = document.getElementById('messageBox');
+        const scoreEl = document.getElementById('scoreDisplay');
+        const streakEl = document.getElementById('streakDisplay');
 
-            // Theme function
-            window.applyTheme = function(theme) {
-                body.className = `theme-${theme}`;
-                
-                if (theme === 'avengers') {
-                    themeIcon.innerText = '🦸';
-                    themeName.innerText = 'AVENGERS';
-                    themeName.style.background = '#e23636';
-                    message.innerText = '🦸 Assemble, Lesedi!';
-                } else if (theme === 'spider') {
-                    themeIcon.innerText = '🕷️';
-                    themeName.innerText = 'SPIDER-MAN';
-                    themeName.style.background = '#02458b';
-                    message.innerText = '🕷️ Go, Spider-Lesedi!';
-                } else if (theme === 'roblox') {
-                    themeIcon.innerText = '🎮';
-                    themeName.innerText = 'ROBLOX';
-                    themeName.style.background = '#cc0000';
-                    message.innerText = '🎮 Level up, Lesedi!';
-                } else if (theme === 'minecraft') {
-                    themeIcon.innerText = '⛏️';
-                    themeName.innerText = 'MINECRAFT';
-                    themeName.style.background = '#4caf50';
-                    message.innerText = '⛏️ Craft on, Lesedi!';
-                }
-            };
-
-            // Theme buttons
-            document.querySelectorAll('.theme-btn').forEach(btn => {
-                btn.onclick = () => applyTheme(btn.dataset.theme);
-            });
-
-            // Generate question
-            function newQuestion() {
-                let a, b;
-                if (Math.random() > 0.5) {
-                    a = Math.floor(Math.random() * 9) + 2;
-                    b = Math.floor(Math.random() * 8) + 2;
-                    currentQuestion = { text: `${a} + ${b}`, answer: a + b };
-                } else {
-                    a = Math.floor(Math.random() * 8) + 5;
-                    b = Math.floor(Math.random() * (a-2)) + 2;
-                    currentQuestion = { text: `${a} - ${b}`, answer: a - b };
-                }
-                question.innerText = currentQuestion.text;
-                answer.value = '';
-                awaitingNext = false;
-                next.disabled = true;
-                check.disabled = false;
+        // CHANGE THEME
+        window.changeTheme = function(theme) {
+            document.body.style.background = 
+                theme === 'avengers' ? '#1e3c72' :
+                theme === 'spider' ? '#1a1a2e' :
+                theme === 'roblox' ? '#8b0000' : '#8B5A2B';
+            
+            if (theme === 'avengers') {
+                themeIcon.innerText = '🦸';
+                themeTitle.innerText = 'AVENGERS';
+                themeTitle.style.background = '#e23636';
+                messageEl.innerText = '🦸 Assemble Lesedi!';
+            } else if (theme === 'spider') {
+                themeIcon.innerText = '🕷️';
+                themeTitle.innerText = 'SPIDER-MAN';
+                themeTitle.style.background = '#02458b';
+                messageEl.innerText = '🕷️ Go Spider-Lesedi!';
+            } else if (theme === 'roblox') {
+                themeIcon.innerText = '🎮';
+                themeTitle.innerText = 'ROBLOX';
+                themeTitle.style.background = '#cc0000';
+                messageEl.innerText = '🎮 Level up Lesedi!';
+            } else if (theme === 'minecraft') {
+                themeIcon.innerText = '⛏️';
+                themeTitle.innerText = 'MINECRAFT';
+                themeTitle.style.background = '#4caf50';
+                messageEl.innerText = '⛏️ Craft on Lesedi!';
             }
+        };
 
-            // Check answer
-            check.onclick = function() {
-                if (awaitingNext) {
-                    message.innerText = '👉 Press NEXT!';
-                    return;
-                }
+        // NEW QUESTION
+        function newQuestion() {
+            let usePlus = Math.random() > 0.5;
+            let a, b;
+            
+            if (usePlus) {
+                a = Math.floor(Math.random() * 9) + 2;
+                b = Math.floor(Math.random() * 8) + 2;
+                currentAnswer = a + b;
+                questionEl.innerText = a + ' + ' + b;
+            } else {
+                a = Math.floor(Math.random() * 8) + 5;
+                b = Math.floor(Math.random() * (a-2)) + 2;
+                currentAnswer = a - b;
+                questionEl.innerText = a + ' - ' + b;
+            }
+            
+            answerInput.value = '';
+            waitingForNext = false;
+            nextBtn.disabled = true;
+            checkBtn.disabled = false;
+        }
+
+        // CHECK ANSWER
+        checkBtn.onclick = function() {
+            if (waitingForNext) {
+                messageEl.innerText = '👉 Press NEXT!';
+                return;
+            }
+            
+            let val = answerInput.value.trim();
+            if (val === '') {
+                messageEl.innerText = '🔢 Type a number!';
+                return;
+            }
+            
+            let num = Number(val);
+            if (isNaN(num)) {
+                messageEl.innerText = '❌ Numbers only!';
+                return;
+            }
+            
+            if (num === currentAnswer) {
+                playCorrect();
                 
-                let val = answer.value.trim();
-                if (val === '') {
-                    message.innerText = '🔢 Type a number!';
-                    return;
-                }
+                streak++;
+                score++;
                 
-                let num = Number(val);
-                if (isNaN(num)) {
-                    message.innerText = '❌ Numbers only!';
-                    return;
+                let msg = '✅ CORRECT!';
+                if (streak >= 3) {
+                    playStreak();
+                    msg += ' 🔥 STREAK!';
                 }
+                messageEl.innerText = msg;
                 
-                if (num === currentQuestion.answer) {
-                    if (soundsOn) correct();
-                    
-                    streakCount++;
-                    score++;
-                    
-                    let msg = '✅ CORRECT!';
-                    if (streakCount >= 3) {
-                        if (soundsOn) streak();
-                        msg += ' 🔥 STREAK!';
-                    }
-                    message.innerText = msg;
-                    
-                    scoreDisplay.innerText = `🏆 ${score}`;
-                    streakDisplay.innerText = `🔥 ${streakCount}`;
-                    
-                    awaitingNext = true;
-                    next.disabled = false;
-                    check.disabled = true;
-                } else {
-                    if (soundsOn) wrong();
-                    
-                    streakCount = 0;
-                    streakDisplay.innerText = `🔥 0`;
-                    message.innerText = '🤔 Try again!';
-                    answer.select();
-                }
-            };
+                scoreEl.innerText = '🏆 ' + score;
+                streakEl.innerText = '🔥 ' + streak;
+                
+                waitingForNext = true;
+                nextBtn.disabled = false;
+                checkBtn.disabled = true;
+            } else {
+                playWrong();
+                
+                streak = 0;
+                streakEl.innerText = '🔥 0';
+                messageEl.innerText = '🤔 Try again!';
+                answerInput.select();
+            }
+        };
 
-            // Next button
-            next.onclick = newQuestion;
+        // NEXT BUTTON
+        nextBtn.onclick = newQuestion;
 
-            // Enter key
-            answer.onkeypress = function(e) {
-                if (e.key === 'Enter') check.click();
-            };
+        // ENTER KEY
+        answerInput.onkeypress = function(e) {
+            if (e.key === 'Enter') checkBtn.click();
+        };
 
-            // Start game
-            newQuestion();
-            applyTheme('avengers');
-        })();
+        // START GAME
+        newQuestion();
     </script>
 </body>
 </html>
