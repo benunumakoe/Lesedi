@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesedi's Avengers math mission · Year 2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* dynamic Avengers background with abstract comic dots */
+            background: radial-gradient(circle at 20% 30%, #1b294a 0%, #0a0f1f 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Segoe UI', cursive, sans-serif;
+            padding: 15px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* comic book background effects */
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(circle at 10% 40%, rgba(255, 215, 0, 0.1) 2px, transparent 2px),
+                radial-gradient(circle at 95% 70%, rgba(255, 69, 0, 0.1) 3px, transparent 3px),
+                linear-gradient(45deg, rgba(255,255,255,0.02) 25%, transparent 25%);
+            background-size: 50px 50px, 80px 80px, 30px 30px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .game-box {
+            max-width: 750px;
+            width: 100%;
+            background: rgba(255, 240, 200, 0.95);
+            backdrop-filter: blur(4px);
+            border-radius: 70px 70px 45px 45px;
+            box-shadow: 0 20px 0 #6a3e10, 0 30px 40px rgba(0,0,0,0.6), 0 0 0 6px #ffc857;
+            padding: 30px 25px 40px 25px;
+            border: 5px solid #ffb82e;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ----- AVENGERS / PHOTO ZONE ----- */
+        .avengers-photo-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(145deg, #1f2c56, #0e1a42);
+            border-radius: 120px;
+            padding: 10px 15px 10px 10px;
+            border: 5px solid #f5c542;
+            box-shadow: 0 8px 0 #b6560a, inset 0 2px 15px #ffd966;
+            margin-bottom: 25px;
+            gap: 10px;
+        }
+
+        .photo-capsule {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .photo-frame {
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            background: #ffe1b3;
+            border: 6px solid #feda75;
+            box-shadow: 0 0 0 5px #aa2b1d, 0 8px 0 #5c1e0f;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: linear-gradient(145deg, #ffcf9a, #fbb554);
+            transition: transform 0.2s;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .avengers-logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: #e62529;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 60px;
+            border: 4px solid #fed54b;
+            text-shadow: 3px 3px 0 #750e10;
+            box-shadow: inset 0 -4px 0 #990f12, 0 7px 0 #541010;
+            font-family: 'Impact', 'Comic Sans MS', sans-serif;
+            letter-spacing: 2px;
+            white-space: nowrap;
+        }
+
+        .avengers-logo span {
+            font-size: 1.2rem;
+            display: block;
+            color: #fff2b5;
+            text-shadow: 2px 2px 0 #a14500;
+        }
+
+        /* stats area with marvel style */
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            background: #2b2155;
+            border-radius: 50px;
+            padding: 12px 25px;
+            margin-bottom: 25px;
+            border: 4px solid #f6b83e;
+            font-weight: bold;
+            font-size: 1.8rem;
+            color: #ffde9e;
+            box-shadow: 0 7px 0 #4d2b0f, inset 0 2px 10px #fce398;
+        }
+
+        .score, .streak {
+            background: #0d0628;
+            padding: 8px 25px;
+            border-radius: 40px;
+            border: 3px solid #ffbb2e;
+            box-shadow: inset 0 0 8px #ffb44a;
+            color: #ffe49e;
+        }
+
+        /* question card */
+        .question-card {
+            background: #fee3a2;
+            padding: 20px 15px;
+            border-radius: 120px;
+            border: 6px solid #ff8321;
+            margin-bottom: 30px;
+            box-shadow: 0 12px 0 #a63f0e, inset 0 -5px 15px #ffffbb;
+        }
+
+        .big-equation {
+            font-size: 6rem;
+            font-weight: 800;
+            color: #1f3a3f;
+            text-shadow: 5px 5px 0 #f5b457;
+            line-height: 1.3;
+            word-break: break-word;
+        }
+
+        .big-equation span {
+            background: rgba(255, 240, 150, 0.6);
+            padding: 0 20px;
+            border-radius: 40px;
+            display: inline-block;
+        }
+
+        .input-area {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 18px;
+            margin: 15px 0 10px;
+            align-items: center;
+        }
+
+        .answer-input {
+            font-size: 3.5rem;
+            width: 210px;
+            text-align: center;
+            border: 6px solid #ff7b2b;
+            border-radius: 70px;
+            background: #fefad0;
+            font-weight: bold;
+            color: #0a3b3b;
+            padding: 5px 15px;
+            outline: none;
+            box-shadow: 0 9px 0 #a3510e, inset 0 2px 15px #ffc107;
+            font-family: 'Comic Sans MS', cursive;
+        }
+
+        .check-btn {
+            background: #f04f30;
+            border: none;
+            font-size: 2.8rem;
+            padding: 15px 40px;
+            border-radius: 60px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 4px 4px 0 #8b280c;
+            box-shadow: 0 10px 0 #952d0c, 0 5px 20px #cf6f1a;
+            cursor: pointer;
+            border: 4px solid #ffbc6e;
+            font-family: 'Comic Sans MS', cursive;
+            transition: 0.06s linear;
+        }
+
+        .check-btn:active {
+            transform: translateY(7px);
+            box-shadow: 0 3px 0 #952d0c;
+        }
+
+        .message {
+            font-size: 2.2rem;
+            min-height: 5rem;
+            padding: 15px;
+            background: #c2e0c2;
+            border-radius: 50px;
+            margin: 20px 0 10px;
+            border: 4px solid #3d9e4b;
+            color: #145214;
+            font-weight: bold;
+            box-shadow: inset 0 -4px 0 #6fa86f;
+        }
+
+        .next-btn {
+            background: #2d7f9e;
+            border: none;
+            font-size: 2.4rem;
+            padding: 12px 45px;
+            border-radius: 60px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 3px 3px 0 #124c66;
+            box-shadow: 0 9px 0 #124f66;
+            cursor: pointer;
+            border: 4px solid #7ad0f0;
+            margin-top: 10px;
+            font-family: 'Comic Sans MS', cursive;
+            transition: 0.06s linear;
+        }
+
+        .next-btn:active {
+            transform: translateY(6px);
+            box-shadow: 0 3px 0 #124f66;
+        }
+
+        .next-btn:disabled {
+            opacity: 0.5;
+            transform: none;
+            box-shadow: 0 5px 0 #124f66;
+            pointer-events: none;
+        }
+
+        footer {
+            margin-top: 25px;
+            font-size: 1.8rem;
+            color: #cc6d1c;
+            text-shadow: 2px 2px 0 #feda7a;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-box">
+        <!-- MARVEL + LESEDI'S PHOTO (custom photo area) -->
+        <div class="avengers-photo-bar">
+            <div class="photo-capsule">
+                <div class="photo-frame" id="lesediPhotoFrame">
+                    <!-- dynamic photo - default shows Lesedi placeholder, but you can replace src -->
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23f5d742' stroke='%23ff9f1c' stroke-width='4' /%3E%3Ccircle cx='35' cy='40' r='6' fill='%23231209' /%3E%3Ccircle cx='65' cy='40' r='6' fill='%23231209' /%3E%3Cpath d='M35 65 Q50 80,65 65' stroke='%238a4b1f' stroke-width='6' fill='none' stroke-linecap='round' /%3E%3Ctext x='28' y='94' font-size='18' fill='%23993333' font-weight='bold'%3E👦%3C/text%3E%3C/svg%3E"
+                         alt="Lesedi's photo" style="object-fit: cover; width: 100%; height: 100%;" id="lesediPhoto">
+                </div>
+                <span style="color:white; font-size:2rem; text-shadow:3px 3px 0 #b8560a;">⚡</span>
+            </div>
+            <div class="avengers-logo">
+                MARVEL <span>THE AVENGERS</span>
+            </div>
+        </div>
+
+        <!-- score + streak -->
+        <div class="stats">
+            <div class="score" id="scoreDisplay">🏆 0</div>
+            <div class="streak" id="streakDisplay">🔥 0</div>
+        </div>
+
+        <!-- main math area -->
+        <div class="question-card">
+            <div class="big-equation" id="questionText">2 + 2</div>
+        </div>
+
+        <div class="input-area">
+            <input type="number" id="answerInput" class="answer-input" placeholder="?" inputmode="numeric">
+            <button class="check-btn" id="checkBtn">✔️ OK</button>
+        </div>
+
+        <div class="message" id="messageBox">
+            🦸 Ready, Lesedi? Assemble!
+        </div>
+
+        <button class="next-btn" id="nextBtn" disabled> ➡️ Next mission</button>
+        <footer>✨ earth's mightiest math hero ✨</footer>
+    </div>
+
+    <script>
+        (function() {
+            // Lesedi's Avengers math game - with photo spot ready
+            let currentQuestion = { text: '2 + 2', answer: 4 };
+            let score = 0;
+            let streak = 0;
+            let awaitingNext = false;
+            let firstLoad = true;
+
+            const questionEl = document.getElementById('questionText');
+            const answerInput = document.getElementById('answerInput');
+            const checkBtn = document.getElementById('checkBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const messageBox = document.getElementById('messageBox');
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const streakDisplay = document.getElementById('streakDisplay');
+
+            // You can easily replace the profile photo — the img element is ready!
+            // For example, uncomment the next line if you have a file input or set src manually.
+            // document.getElementById('lesediPhoto').src = "lesedi_real_photo.jpg";  
+
+            function refreshStatsUI() {
+                scoreDisplay.innerText = `🏆 ${score}`;
+                streakDisplay.innerText = `🔥 ${streak}`;
+            }
+
+            // Year 1–2 friendly random question (add/sub, no negative, 1–12 range)
+            function generateRandomQuestion() {
+                const usePlus = Math.random() >= 0.5;
+                let a, b, ans;
+                if (usePlus) {
+                    a = Math.floor(Math.random() * 10) + 2;  // 2..11
+                    b = Math.floor(Math.random() * 8) + 2;   // 2..9  (sum between 4–20)
+                    ans = a + b;
+                    return { text: `${a} + ${b}`, answer: ans };
+                } else {
+                    a = Math.floor(Math.random() * 8) + 6;    // 6..13
+                    b = Math.floor(Math.random() * (a - 2)) + 2;  // min 2, ensures diff at least 2
+                    if (a - b <= 0) b = a - 2;  // safety: keep positive diff
+                    ans = a - b;
+                    return { text: `${a} - ${b}`, answer: ans };
+                }
+            }
+
+            function setNewQuestion() {
+                const newQ = generateRandomQuestion();
+                currentQuestion = newQ;
+                questionEl.innerText = newQ.text;
+                answerInput.value = '';
+                answerInput.focus();
+
+                awaitingNext = false;
+                nextBtn.disabled = true;
+                checkBtn.disabled = false;
+                checkBtn.style.opacity = '1';
+
+                if (firstLoad) {
+                    messageBox.innerHTML = '🦸 Ready, Lesedi? Assemble!';
+                    firstLoad = false;
+                } else {
+                    messageBox.innerHTML = '💪 new mission! type your number';
+                }
+            }
+
+            function handleCheck() {
+                if (awaitingNext) {
+                    messageBox.innerHTML = '🌟 press NEXT for another challenge!';
+                    return;
+                }
+
+                const rawValue = answerInput.value.trim();
+                if (rawValue === '') {
+                    messageBox.innerHTML = '📝 write a number, hero!';
+                    return;
+                }
+                const num = Number(rawValue);
+                if (isNaN(num)) {
+                    messageBox.innerHTML = '❌ that’s not a number, try again!';
+                    return;
+                }
+
+                if (num === currentQuestion.answer) {
+                    // correct!
+                    streak += 1;
+                    score += 1;
+                    refreshStatsUI();
+
+                    const praise = [
+                        '✅ AVENGERS ASSEMBLE! correct!',
+                        '🎉 POW! right answer!',
+                        '⚡ SHIELD strike! perfect!',
+                        '🛡️ well done, Lesedi!',
+                        '💥 fantastic! +1🏆'
+                    ];
+                    const rand = praise[Math.floor(Math.random() * praise.length)];
+                    messageBox.innerHTML = `✅ ${rand}`;
+                    if (streak >= 3) messageBox.innerHTML += ' 🔥🔥🔥 superstreak!';
+
+                    awaitingNext = true;
+                    nextBtn.disabled = false;
+                    checkBtn.disabled = true;
+                } else {
+                    streak = 0;
+                    refreshStatsUI();
+                    messageBox.innerHTML = `🤔 not quite, Lesedi. try another number!`;
+                    answerInput.select();
+                }
+            }
+
+            function handleNext() {
+                if (awaitingNext) {
+                    setNewQuestion();
+                }
+            }
+
+            // enter key in input triggers check
+            answerInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleCheck();
+                }
+            });
+
+            checkBtn.addEventListener('click', handleCheck);
+            nextBtn.addEventListener('click', handleNext);
+
+            // limit input length (most answers ≤ 2 digits)
+            answerInput.addEventListener('input', function() {
+                if (this.value.length > 2) this.value = this.value.slice(0, 2);
+            });
+
+            // start everything
+            setNewQuestion();
+            refreshStatsUI();
+
+            // Explicitly allow parent to easily replace photo.
+            // The photo area now displays a cute default drawing, but you can set any image.
+            // Example: document.getElementById('lesediPhoto').src = 'my-son-pic.jpg';
+            // For demonstration, we keep the friendly face placeholder, but the code below
+            // shows how to swap if you have the file input (optional).
+            // You can right-click the photo frame and inspect to replace the src.
+
+            // To make it super easy: we add a tiny hidden instruction in console.
+            console.log("To put Lesedi's photo, replace the image src: document.getElementById('lesediPhoto').src = 'your-image.jpg' ;");
+        })();
+    </script>
+</body>
+</html>
