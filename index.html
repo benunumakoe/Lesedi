@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesedi's Math · Avengers · Spider-Man · Paw Patrol · Minecraft</title>
+    <title>Lesedi's Math Game · with photo + sounds</title>
     <style>
         * {
             margin: 0;
@@ -17,48 +17,49 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Segoe UI', cursive, sans-serif;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             padding: 15px;
-            transition: background 0.4s;
         }
 
-        /* theme backgrounds */
-        body.theme-avengers {
-            background: radial-gradient(circle at 20% 30%, #1b294a 0%, #0a0f1f 100%);
-        }
-        body.theme-spider {
-            background: linear-gradient(145deg, #0a1f3b 0%, #2b1e3c 100%), radial-gradient(circle at 70% 20%, #e63946 5px, transparent 5px);
-        }
-        body.theme-pawpatrol {
-            background: linear-gradient(135deg, #3b9ae1 0%, #faca2e 100%);
-        }
-        body.theme-minecraft {
-            background: #6b4f3c;
-            background-image: linear-gradient(rgba(140, 200, 80, 0.2) 2px, transparent 2px),
-                              linear-gradient(90deg, rgba(140, 200, 80, 0.2) 2px, transparent 2px);
-            background-size: 40px 40px;
-        }
+        body.theme-avengers { background: radial-gradient(circle at 20% 30%, #1b294a 0%, #0a0f1f 100%); }
+        body.theme-spider { background: linear-gradient(145deg, #0a1f3b 0%, #2b1e3c 100%); }
+        body.theme-pawpatrol { background: linear-gradient(135deg, #3b9ae1 0%, #faca2e 100%); }
+        body.theme-minecraft { background: #6b4f3c; background-image: linear-gradient(rgba(140,200,80,0.2) 2px, transparent 2px), linear-gradient(90deg, rgba(140,200,80,0.2) 2px, transparent 2px); background-size: 40px 40px; }
 
         .game-box {
             max-width: 850px;
             width: 100%;
             background: rgba(255, 240, 200, 0.95);
-            backdrop-filter: blur(5px);
-            border-radius: 70px 70px 45px 45px;
-            box-shadow: 0 20px 0 #6a3e10, 0 30px 40px rgba(0,0,0,0.6), 0 0 0 6px #ffc857;
-            padding: 30px 25px 40px 25px;
+            border-radius: 70px;
+            box-shadow: 0 20px 0 #6a3e10, 0 30px 40px rgba(0,0,0,0.6);
+            padding: 30px 25px 40px;
             border: 5px solid #ffb82e;
             text-align: center;
-            position: relative;
-            z-index: 10;
         }
 
-        /* theme selector */
+        /* sound activator - big and obvious */
+        .sound-activator {
+            background: #ff6b6b;
+            color: white;
+            font-size: 2rem;
+            padding: 15px;
+            border-radius: 60px;
+            border: 5px solid yellow;
+            margin-bottom: 20px;
+            cursor: pointer;
+            animation: pulse 1.5s infinite;
+            font-weight: bold;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); background: #ff4141; }
+        }
+
         .theme-chooser {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             margin-bottom: 20px;
         }
         .theme-btn {
@@ -70,75 +71,58 @@
             font-weight: bold;
             cursor: pointer;
             box-shadow: 0 6px 0 #a7581c;
-            transition: 0.05s linear;
-            font-family: 'Comic Sans MS', cursive;
         }
-        .theme-btn:active {
-            transform: translateY(5px);
-            box-shadow: 0 1px 0 #a7581c;
-        }
-        .theme-btn.spider { background: #e63946; color: white; }
-        .theme-btn.paw { background: #f5d742; color: #1e4f8a; }
-        .theme-btn.minecraft { background: #6b8f4c; color: white; }
-        .theme-btn.avengers { background: #1f2c56; color: #f5c542; }
+        .theme-btn:active { transform: translateY(5px); }
 
-        /* ===== PHOTO AREA - BIGGER AND BOLDER ===== */
-        .photo-star-section {
+        /* PHOTO AREA - SUPER CLEAR */
+        .photo-section {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 20px;
-            margin-bottom: 25px;
-            background: rgba(255,215,100,0.3);
+            background: #ffd966;
             padding: 15px;
             border-radius: 130px;
-            border: 4px dashed #ffaa33;
+            margin-bottom: 20px;
+            border: 5px solid #e67e22;
         }
 
-        .lesedi-photo-super {
-            width: 130px;
-            height: 130px;
+        .photo-frame {
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
-            background: #ffe5b4;
-            border: 8px solid #feda75;
-            box-shadow: 0 0 0 6px #c0392b, 0 12px 0 #6d2c1f;
+            border: 8px solid #f39c12;
+            box-shadow: 0 0 0 5px #c0392b, 0 10px 0 #6d2c1f;
             overflow: hidden;
-            flex-shrink: 0;
+            background: white;
         }
-        .lesedi-photo-super img {
+        .photo-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
         }
 
-        .photo-label {
-            font-size: 2.2rem;
-            font-weight: bold;
+        .photo-instruction {
+            font-size: 1.8rem;
             background: #2c3e50;
             color: white;
-            padding: 15px 35px;
-            border-radius: 60px;
-            border: 5px solid #ffcc33;
-            box-shadow: inset 0 -5px 0 #1a2632, 0 10px 0 #11161f;
-            letter-spacing: 2px;
+            padding: 15px 25px;
+            border-radius: 50px;
+            border: 4px solid #f1c40f;
         }
-        .photo-label span {
-            font-size: 1.4rem;
+        .photo-instruction small {
+            font-size: 1.2rem;
             display: block;
-            color: #fff7b0;
+            color: #ffe066;
         }
 
-        /* theme logo below photo */
-        .theme-logo-badge {
+        .theme-logo {
             font-size: 2.5rem;
             font-weight: bold;
             background: #e62529;
             color: white;
             padding: 8px 30px;
             border-radius: 60px;
-            border: 4px solid #fed54b;
-            text-shadow: 3px 3px 0 #750e10;
             display: inline-block;
             margin-bottom: 15px;
         }
@@ -150,26 +134,23 @@
             border-radius: 50px;
             padding: 12px 25px;
             margin-bottom: 25px;
-            border: 4px solid #f6b83e;
-            font-size: 1.8rem;
             color: #ffde9e;
-            box-shadow: 0 7px 0 #4d2b0f;
+            font-size: 1.8rem;
         }
         .score, .streak {
             background: #0d0628;
             padding: 8px 25px;
             border-radius: 40px;
             border: 3px solid #ffbb2e;
-            color: #ffe49e;
         }
 
         .question-card {
             background: #fee3a2;
-            padding: 20px 15px;
+            padding: 20px;
             border-radius: 120px;
             border: 6px solid #ff8321;
             margin-bottom: 30px;
-            box-shadow: 0 12px 0 #a63f0e, inset 0 -5px 15px #ffffbb;
+            box-shadow: 0 12px 0 #a63f0e;
         }
         .big-equation {
             font-size: 6rem;
@@ -180,11 +161,10 @@
 
         .input-area {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
             gap: 18px;
-            margin: 15px 0 10px;
-            align-items: center;
+            margin: 15px 0;
+            flex-wrap: wrap;
         }
         .answer-input {
             font-size: 3.5rem;
@@ -193,129 +173,187 @@
             border: 6px solid #ff7b2b;
             border-radius: 70px;
             background: #fefad0;
-            font-weight: bold;
-            color: #0a3b3b;
             padding: 5px 15px;
-            outline: none;
-            box-shadow: 0 9px 0 #a3510e, inset 0 2px 15px #ffc107;
+            box-shadow: 0 9px 0 #a3510e;
         }
         .check-btn {
             background: #f04f30;
-            border: none;
             font-size: 2.8rem;
             padding: 15px 40px;
             border-radius: 60px;
-            font-weight: bold;
             color: white;
-            text-shadow: 4px 4px 0 #8b280c;
+            border: none;
             box-shadow: 0 10px 0 #952d0c;
             cursor: pointer;
             border: 4px solid #ffbc6e;
-            transition: 0.06s linear;
         }
-        .check-btn:active { transform: translateY(7px); box-shadow: 0 3px 0 #952d0c; }
+        .check-btn:active { transform: translateY(7px); }
+
         .message {
             font-size: 2.2rem;
-            min-height: 5rem;
             padding: 15px;
             background: #c2e0c2;
             border-radius: 50px;
-            margin: 20px 0 10px;
+            margin: 20px 0;
             border: 4px solid #3d9e4b;
-            color: #145214;
-            font-weight: bold;
         }
         .next-btn {
             background: #2d7f9e;
-            border: none;
             font-size: 2.4rem;
             padding: 12px 45px;
             border-radius: 60px;
             color: white;
-            font-weight: bold;
-            text-shadow: 3px 3px 0 #124c66;
+            border: none;
             box-shadow: 0 9px 0 #124f66;
             cursor: pointer;
-            border: 4px solid #7ad0f0;
-            margin-top: 10px;
-            transition: 0.06s linear;
         }
-        .next-btn:active { transform: translateY(6px); }
         .next-btn:disabled { opacity: 0.5; pointer-events: none; }
-        footer { margin-top: 25px; font-size: 1.8rem; color: #cc6d1c; }
     </style>
 </head>
 <body class="theme-avengers" id="mainBody">
     <div class="game-box">
+        <!-- BIG SOUND ACTIVATOR BUTTON - TAP THIS FIRST! -->
+        <div class="sound-activator" id="soundButton">
+            🔊 TAP HERE FIRST FOR SOUND! 🔊
+        </div>
+
         <!-- theme buttons -->
         <div class="theme-chooser">
-            <button class="theme-btn avengers" data-theme="avengers">🦸 Avengers</button>
-            <button class="theme-btn spider" data-theme="spider">🕷️ Spider-Man</button>
-            <button class="theme-btn paw" data-theme="pawpatrol">🐾 Paw Patrol</button>
-            <button class="theme-btn minecraft" data-theme="minecraft">⛏️ Minecraft</button>
+            <button class="theme-btn" data-theme="avengers">🦸 Avengers</button>
+            <button class="theme-btn" data-theme="spider">🕷️ Spider-Man</button>
+            <button class="theme-btn" data-theme="pawpatrol">🐾 Paw Patrol</button>
+            <button class="theme-btn" data-theme="minecraft">⛏️ Minecraft</button>
         </div>
 
-        <!-- ===== PHOTO ZONE - GUARANTEED VISIBLE ===== -->
-        <div class="photo-star-section">
-            <div class="lesedi-photo-super">
-                <!-- LESEDI'S PHOTO GOES HERE - just replace the image file -->
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23f5d742' stroke='%23ff9f1c' stroke-width='4' /%3E%3Ccircle cx='35' cy='40' r='6' fill='%23231209' /%3E%3Ccircle cx='65' cy='40' r='6' fill='%23231209' /%3E%3Cpath d='M35 65 Q50 80,65 65' stroke='%238a4b1f' stroke-width='6' fill='none' stroke-linecap='round' /%3E%3Ctext x='28' y='94' font-size='20' fill='%23993333'%3E👦%3C/text%3E%3C/svg%3E"
-                     alt="Lesedi" id="lesediPhoto" style="width:100%; height:100%; object-fit:cover;">
+        <!-- PHOTO SECTION - WITH SIMPLE IMAGE TAG -->
+        <div class="photo-section">
+            <div class="photo-frame">
+                <!-- JUST THIS LINE - REPLACE WITH LESEDI'S PHOTO -->
+                <img src="lesedi.jpg" alt="Lesedi" id="lesediPhoto">
             </div>
-            <div class="photo-label">
-                LESEDI <span>math hero</span>
+            <div class="photo-instruction">
+                👆 LESEDI'S PHOTO<br>
+                <small>Just save photo as "lesedi.jpg" in same folder</small>
             </div>
         </div>
 
-        <!-- dynamic theme logo (changes with theme) -->
-        <div class="theme-logo-badge" id="themeLogo">AVENGERS</div>
+        <!-- theme logo -->
+        <div class="theme-logo" id="themeLogo">AVENGERS</div>
 
-        <!-- score + streak -->
+        <!-- score -->
         <div class="stats">
             <div class="score" id="scoreDisplay">🏆 0</div>
             <div class="streak" id="streakDisplay">🔥 0</div>
         </div>
 
-        <!-- math area -->
+        <!-- math question -->
         <div class="question-card">
             <div class="big-equation" id="questionText">2 + 2</div>
         </div>
 
+        <!-- answer area -->
         <div class="input-area">
             <input type="number" id="answerInput" class="answer-input" placeholder="?" inputmode="numeric">
             <button class="check-btn" id="checkBtn">✔️ OK</button>
         </div>
 
-        <div class="message" id="messageBox">🦸 Ready, Lesedi?</div>
+        <div class="message" id="messageBox">🦸 Tap the sound button first!</div>
         <button class="next-btn" id="nextBtn" disabled> ➡️ Next</button>
-        <footer>✨ your photo = math superstar ✨</footer>
     </div>
 
     <script>
         (function() {
-            // ----- sounds -----
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            let audioCtx = null;
-            function initAudio() { if (!audioCtx) audioCtx = new AudioContext(); }
-            function playCorrectSound() {
-                try { initAudio(); if (!audioCtx) return; const now = audioCtx.currentTime; const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain(); osc.type = 'sine'; osc.frequency.value = 880; gain.gain.setValueAtTime(0.2, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3); osc.connect(gain).connect(audioCtx.destination); osc.start(now); osc.stop(now + 0.3); } catch (e) {}
+            // ----- SIMPLE SOUND SETUP -----
+            let soundsEnabled = false;
+            const soundButton = document.getElementById('soundButton');
+            
+            // Create audio contexts only after button click
+            let correctSound = null;
+            let wrongSound = null;
+            let streakSound = null;
+
+            function enableSounds() {
+                if (soundsEnabled) return;
+                
+                try {
+                    // Create simple audio using Web Audio API
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    const ctx = new AudioContext();
+                    
+                    // Correct sound function
+                    correctSound = function() {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.value = 880;
+                        gain.gain.value = 0.2;
+                        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start();
+                        osc.stop(ctx.currentTime + 0.3);
+                    };
+                    
+                    // Wrong sound function
+                    wrongSound = function() {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'sawtooth';
+                        osc.frequency.value = 340;
+                        gain.gain.value = 0.15;
+                        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.25);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start();
+                        osc.stop(ctx.currentTime + 0.25);
+                    };
+                    
+                    // Streak sound (two notes)
+                    streakSound = function() {
+                        const osc1 = ctx.createOscillator();
+                        const gain1 = ctx.createGain();
+                        osc1.frequency.value = 1046.5;
+                        gain1.gain.value = 0.2;
+                        gain1.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.15);
+                        osc1.connect(gain1);
+                        gain1.connect(ctx.destination);
+                        osc1.start();
+                        osc1.stop(ctx.currentTime + 0.15);
+                        
+                        const osc2 = ctx.createOscillator();
+                        const gain2 = ctx.createGain();
+                        osc2.frequency.value = 1318.5;
+                        gain2.gain.value = 0.2;
+                        gain2.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+                        osc2.connect(gain2);
+                        gain2.connect(ctx.destination);
+                        osc2.start(ctx.currentTime + 0.1);
+                        osc2.stop(ctx.currentTime + 0.3);
+                    };
+                    
+                    soundsEnabled = true;
+                    soundButton.style.background = '#2ecc71';
+                    soundButton.innerHTML = '🔊 SOUNDS ARE READY! 🎉';
+                    soundButton.style.animation = 'none';
+                    
+                    // Resume audio context (required for Chrome)
+                    if (ctx.state === 'suspended') ctx.resume();
+                    
+                } catch (e) {
+                    console.log('Sound error:', e);
+                }
             }
-            function playWrongSound() {
-                try { initAudio(); if (!audioCtx) return; const now = audioCtx.currentTime; const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain(); osc.type = 'sawtooth'; osc.frequency.value = 340; gain.gain.setValueAtTime(0.15, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25); osc.connect(gain).connect(audioCtx.destination); osc.start(now); osc.stop(now + 0.25); } catch (e) {}
-            }
-            function playStreakSound() {
-                try { initAudio(); if (!audioCtx) return; const now = audioCtx.currentTime; const osc1 = audioCtx.createOscillator(); const gain1 = audioCtx.createGain(); osc1.frequency.value = 1046.5; gain1.gain.setValueAtTime(0.2, now); gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.15); osc1.connect(gain1).connect(audioCtx.destination); osc1.start(now); osc1.stop(now + 0.15); const osc2 = audioCtx.createOscillator(); const gain2 = audioCtx.createGain(); osc2.frequency.value = 1318.5; gain2.gain.setValueAtTime(0.2, now + 0.1); gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.3); osc2.connect(gain2).connect(audioCtx.destination); osc2.start(now + 0.1); osc2.stop(now + 0.3); } catch (e) {}
-            }
+
+            soundButton.addEventListener('click', enableSounds);
+            soundButton.addEventListener('touchstart', enableSounds);
 
             // Game state
             let currentQuestion = { text: '2 + 2', answer: 4 };
             let score = 0;
             let streak = 0;
             let awaitingNext = false;
-            let firstLoad = true;
-            let currentTheme = 'avengers';
 
-            // DOM
+            // DOM elements
             const bodyEl = document.getElementById('mainBody');
             const themeLogo = document.getElementById('themeLogo');
             const questionEl = document.getElementById('questionText');
@@ -325,125 +363,115 @@
             const messageBox = document.getElementById('messageBox');
             const scoreDisplay = document.getElementById('scoreDisplay');
             const streakDisplay = document.getElementById('streakDisplay');
-            const lesediPhoto = document.getElementById('lesediPhoto'); // photo element
 
-            // Theme definitions
-            const themes = {
-                avengers: { bodyClass: 'theme-avengers', logoText: 'AVENGERS', bg: 'linear-gradient(145deg, #1f2c56, #0e1a42)', border: '#f5c542', logoBg: '#e62529' },
-                spider: { bodyClass: 'theme-spider', logoText: 'SPIDER-MAN', bg: 'linear-gradient(145deg, #2c0f1a, #1f2a44)', border: '#e63946', logoBg: '#e63946' },
-                pawpatrol: { bodyClass: 'theme-pawpatrol', logoText: 'PAW PATROL', bg: 'linear-gradient(145deg, #3b9ae1, #faca2e)', border: '#f55c3a', logoBg: '#f5d742' },
-                minecraft: { bodyClass: 'theme-minecraft', logoText: 'MINECRAFT', bg: 'linear-gradient(145deg, #4f7a3b, #2b3d1c)', border: '#8bae6d', logoBg: '#6b8f4c' }
-            };
-
+            // Theme switching
             function applyTheme(themeId) {
-                currentTheme = themeId;
-                const theme = themes[themeId];
-                bodyEl.className = theme.bodyClass;
-                themeLogo.innerText = theme.logoText;
-                themeLogo.style.background = theme.logoBg;
+                bodyEl.className = `theme-${themeId}`;
+                if (themeId === 'avengers') themeLogo.innerText = 'AVENGERS';
+                else if (themeId === 'spider') themeLogo.innerText = 'SPIDER-MAN';
+                else if (themeId === 'pawpatrol') themeLogo.innerText = 'PAW PATROL';
+                else if (themeId === 'minecraft') themeLogo.innerText = 'MINECRAFT';
+                
+                themeLogo.style.background = themeId === 'spider' ? '#e63946' : 
+                                            themeId === 'pawpatrol' ? '#f5d742' : 
+                                            themeId === 'minecraft' ? '#6b8f4c' : '#e62529';
             }
 
-            // Theme buttons
             document.querySelectorAll('.theme-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => applyTheme(e.target.dataset.theme));
+                btn.addEventListener('click', (e) => {
+                    applyTheme(e.target.dataset.theme);
+                });
             });
 
             // Generate question
-            function generateRandomQuestion() {
-                const usePlus = Math.random() >= 0.5;
-                let a, b, ans;
-                if (usePlus) {
-                    a = Math.floor(Math.random() * 10) + 2;
-                    b = Math.floor(Math.random() * 8) + 2;
-                    ans = a + b;
-                    return { text: `${a} + ${b}`, answer: ans };
+            function generateQuestion() {
+                const plus = Math.random() > 0.5;
+                if (plus) {
+                    let a = Math.floor(Math.random() * 9) + 2;
+                    let b = Math.floor(Math.random() * 8) + 2;
+                    return { text: `${a} + ${b}`, answer: a + b };
                 } else {
-                    a = Math.floor(Math.random() * 8) + 6;
-                    b = Math.floor(Math.random() * (a-2)) + 2;
-                    if (a - b <= 0) b = a - 2;
-                    ans = a - b;
-                    return { text: `${a} - ${b}`, answer: ans };
+                    let a = Math.floor(Math.random() * 8) + 5;
+                    let b = Math.floor(Math.random() * (a-2)) + 2;
+                    return { text: `${a} - ${b}`, answer: a - b };
                 }
             }
 
-            function refreshStatsUI() {
+            function newQuestion() {
+                let q = generateQuestion();
+                currentQuestion = q;
+                questionEl.innerText = q.text;
+                answerInput.value = '';
+                awaitingNext = false;
+                nextBtn.disabled = true;
+                checkBtn.disabled = false;
+            }
+
+            function updateScore() {
                 scoreDisplay.innerText = `🏆 ${score}`;
                 streakDisplay.innerText = `🔥 ${streak}`;
             }
 
-            function setNewQuestion() {
-                const newQ = generateRandomQuestion();
-                currentQuestion = newQ;
-                questionEl.innerText = newQ.text;
-                answerInput.value = '';
-                answerInput.focus();
-                awaitingNext = false;
-                nextBtn.disabled = true;
-                checkBtn.disabled = false;
-                messageBox.innerHTML = firstLoad ? '🦸 Ready, Lesedi?' : '✨ new challenge!';
-                firstLoad = false;
-            }
-
-            function handleCheck() {
-                if (awaitingNext) { messageBox.innerHTML = '➡️ press NEXT!'; return; }
-                const raw = answerInput.value.trim();
-                if (raw === '') { messageBox.innerHTML = '🔢 type a number!'; return; }
-                const num = Number(raw);
-                if (isNaN(num)) { messageBox.innerHTML = '❌ need a number!'; return; }
-
+            // Check answer
+            function checkAnswer() {
+                if (awaitingNext) {
+                    messageBox.innerText = '👉 Press NEXT!';
+                    return;
+                }
+                
+                let val = answerInput.value.trim();
+                if (val === '') {
+                    messageBox.innerText = '🔢 Type a number!';
+                    return;
+                }
+                
+                let num = Number(val);
+                if (isNaN(num)) {
+                    messageBox.innerText = '❌ Numbers only!';
+                    return;
+                }
+                
                 if (num === currentQuestion.answer) {
-                    playCorrectSound();
-                    streak += 1;
-                    score += 1;
-                    refreshStatsUI();
-
-                    let praise = '';
-                    if (currentTheme === 'spider') praise = '🕷️ SPECTACULAR!';
-                    else if (currentTheme === 'pawpatrol') praise = '🐾 RUFF-RUFF!';
-                    else if (currentTheme === 'minecraft') praise = '⛏️ CRAFT-Y!';
-                    else praise = '✅ AVENGERS ASSEMBLE!';
-                    messageBox.innerHTML = `✅ ${praise}`;
+                    // CORRECT!
+                    if (soundsEnabled && correctSound) correctSound();
                     
+                    streak++;
+                    score++;
+                    
+                    let msg = '✅ CORRECT!';
                     if (streak >= 3) {
-                        playStreakSound();
-                        messageBox.innerHTML += ' 🔥 STREAK!';
+                        if (soundsEnabled && streakSound) streakSound();
+                        msg += ' 🔥 STREAK!';
                     }
-
+                    messageBox.innerText = msg;
+                    
                     awaitingNext = true;
                     nextBtn.disabled = false;
                     checkBtn.disabled = true;
                 } else {
-                    playWrongSound();
+                    // WRONG
+                    if (soundsEnabled && wrongSound) wrongSound();
+                    
                     streak = 0;
-                    refreshStatsUI();
-                    messageBox.innerHTML = `🤔 try again!`;
+                    messageBox.innerText = '🤔 Try again!';
                     answerInput.select();
                 }
+                
+                updateScore();
             }
 
-            function handleNext() { if (awaitingNext) setNewQuestion(); }
-
-            answerInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); handleCheck(); } });
-            checkBtn.addEventListener('click', handleCheck);
-            nextBtn.addEventListener('click', handleNext);
-            answerInput.addEventListener('input', function() { if (this.value.length > 2) this.value = this.value.slice(0,2); });
+            // Event listeners
+            checkBtn.addEventListener('click', checkAnswer);
+            nextBtn.addEventListener('click', newQuestion);
+            
+            answerInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') checkAnswer();
+            });
 
             // Initialize
-            setNewQuestion();
-            refreshStatsUI();
+            newQuestion();
+            updateScore();
             applyTheme('avengers');
-
-            // Unlock audio on first touch/click
-            document.body.addEventListener('touchstart', function once() { initAudio(); document.body.removeEventListener('touchstart', once); }, { once: true });
-            document.body.addEventListener('click', function onceClick() { initAudio(); document.body.removeEventListener('click', onceClick); }, { once: true });
-
-            // ===== PHOTO INSTRUCTIONS (clear for parent) =====
-            console.log("=== TO ADD LESEDI'S PHOTO ===");
-            console.log("1. Put his photo file (e.g., lesedi.jpg) in the same folder as this game.");
-            console.log("2. Replace the image src with: lesediPhoto.src = 'lesedi.jpg';");
-            console.log("Or right-click the photo frame in browser → inspect → change src.");
-            // Example (uncomment if you upload a photo):
-            // lesediPhoto.src = 'lesedi-face.jpg';
         })();
     </script>
 </body>
