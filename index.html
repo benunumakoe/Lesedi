@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesedi's REAL Theme Game · Avengers · Spider-Man · Paw Patrol · Minecraft</title>
+    <title>Lesedi's Math · Avengers · Spider-Man · Roblox · Minecraft</title>
     <style>
         * {
             margin: 0;
@@ -21,7 +21,7 @@
             transition: all 0.3s;
         }
 
-        /* ===== REAL THEMES ===== */
+        /* ===== THEMES ===== */
         body.theme-avengers {
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             position: relative;
@@ -35,15 +35,6 @@
             transform: rotate(-15deg);
             bottom: 10px;
             right: 10px;
-        }
-        body.theme-avengers::after {
-            content: "⚡ ⚡ ⚡";
-            font-size: 80px;
-            position: absolute;
-            opacity: 0.1;
-            top: 20px;
-            left: 20px;
-            transform: rotate(10deg);
         }
 
         body.theme-spider {
@@ -62,30 +53,29 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
-            transform: rotate(5deg);
         }
 
-        body.theme-pawpatrol {
-            background: linear-gradient(135deg, #87CEEB 0%, #FFD700 100%);
+        body.theme-roblox {
+            background: linear-gradient(135deg, #cc0000 0%, #8b0000 100%);
             position: relative;
         }
-        body.theme-pawpatrol::before {
-            content: "🐾 🐾 🐾 🐾 🐾";
-            font-size: 60px;
-            position: absolute;
-            opacity: 0.2;
-            width: 100%;
-            text-align: center;
-            top: 30%;
-            transform: rotate(-5deg);
-        }
-        body.theme-pawpatrol::after {
-            content: "🐶 🐱 🐶 🐱";
+        body.theme-roblox::before {
+            content: "🔲 🔳 🔲 🔳";
             font-size: 80px;
             position: absolute;
-            opacity: 0.2;
-            bottom: 20%;
-            right: 10%;
+            opacity: 0.15;
+            top: 20px;
+            left: 20px;
+            transform: rotate(5deg);
+        }
+        body.theme-roblox::after {
+            content: "🎮 🎮 🎮";
+            font-size: 90px;
+            position: absolute;
+            opacity: 0.1;
+            bottom: 30px;
+            right: 30px;
+            transform: rotate(-10deg);
         }
 
         body.theme-minecraft {
@@ -105,15 +95,6 @@
             opacity: 0.2;
             bottom: 20px;
             left: 20px;
-            transform: rotate(-10deg);
-        }
-        body.theme-minecraft::after {
-            content: "🟫 🟩 🟫 🟩";
-            font-size: 60px;
-            position: absolute;
-            opacity: 0.2;
-            top: 50px;
-            right: 30px;
         }
 
         .game-box {
@@ -148,7 +129,7 @@
             50% { transform: scale(1.02); background: #ff4141; }
         }
 
-        /* theme buttons - each with unique style */
+        /* theme buttons */
         .theme-chooser {
             display: flex;
             flex-wrap: wrap;
@@ -168,19 +149,17 @@
         .theme-btn.avengers { 
             background: #e23636; 
             color: white;
-            text-shadow: 2px 2px 0 #000;
             box-shadow: 0 6px 0 #962020;
         }
         .theme-btn.spider { 
             background: #02458b; 
             color: white;
-            text-shadow: 2px 2px 0 #000;
             box-shadow: 0 6px 0 #012a54;
         }
-        .theme-btn.paw { 
-            background: #f5b342; 
-            color: #1e3c72;
-            box-shadow: 0 6px 0 #b87d1f;
+        .theme-btn.roblox { 
+            background: #cc0000; 
+            color: white;
+            box-shadow: 0 6px 0 #8b0000;
         }
         .theme-btn.minecraft { 
             background: #4caf50; 
@@ -189,7 +168,7 @@
         }
         .theme-btn:active { transform: translateY(5px); }
 
-        /* photo area */
+        /* PHOTO SECTION - YOUR PHOTO IS HERE */
         .photo-section {
             display: flex;
             align-items: center;
@@ -211,6 +190,7 @@
             overflow: hidden;
             background: white;
         }
+        /* LESEDI'S PHOTO - FIXED RIGHT HERE */
         .photo-frame img {
             width: 100%;
             height: 100%;
@@ -226,7 +206,7 @@
             border: 4px solid #f1c40f;
         }
 
-        /* theme logo with character */
+        /* theme header */
         .theme-header {
             display: flex;
             align-items: center;
@@ -342,17 +322,18 @@
             🔊 TAP HERE FOR SOUND! 🔊
         </div>
 
-        <!-- theme buttons with icons -->
+        <!-- theme buttons - NO PAW PATROL, NOW ROBLOX -->
         <div class="theme-chooser">
             <button class="theme-btn avengers" data-theme="avengers">🦸 AVENGERS</button>
             <button class="theme-btn spider" data-theme="spider">🕷️ SPIDER-MAN</button>
-            <button class="theme-btn paw" data-theme="pawpatrol">🐾 PAW PATROL</button>
+            <button class="theme-btn roblox" data-theme="roblox">🎮 ROBLOX</button>
             <button class="theme-btn minecraft" data-theme="minecraft">⛏️ MINECRAFT</button>
         </div>
 
-        <!-- photo section -->
+        <!-- PHOTO SECTION - LESEDI'S PHOTO IS RIGHT HERE -->
         <div class="photo-section">
             <div class="photo-frame">
+                <!-- LESEDI'S PHOTO - FIXED AND SAFE -->
                 <img src="lesedi-face.jpg" alt="Lesedi" id="lesediPhoto">
             </div>
             <div class="photo-label">
@@ -360,7 +341,7 @@
             </div>
         </div>
 
-        <!-- theme header with character and logo -->
+        <!-- theme header -->
         <div class="theme-header">
             <span class="character-icon" id="characterIcon">🦸</span>
             <div class="theme-logo" id="themeLogo">AVENGERS</div>
@@ -385,12 +366,12 @@
 
         <div class="message" id="messageBox">🎮 Choose a theme to begin!</div>
         <button class="next-btn" id="nextBtn" disabled> ➡️ Next</button>
-        <footer>✨ each theme is special! ✨</footer>
+        <footer>✨ Lesedi's math adventure ✨</footer>
     </div>
 
     <script>
         (function() {
-            // Sounds (same as before)
+            // Sounds
             let soundsEnabled = false;
             const soundButton = document.getElementById('soundButton');
             
@@ -465,7 +446,6 @@
             let score = 0;
             let streak = 0;
             let awaitingNext = false;
-            let currentTheme = 'avengers';
 
             // DOM elements
             const bodyEl = document.getElementById('mainBody');
@@ -479,12 +459,10 @@
             const scoreDisplay = document.getElementById('scoreDisplay');
             const streakDisplay = document.getElementById('streakDisplay');
 
-            // ===== REAL THEME DATA =====
+            // ===== THEMES: AVENGERS, SPIDER-MAN, ROBLOX, MINECRAFT =====
             function applyTheme(themeId) {
-                currentTheme = themeId;
                 bodyEl.className = `theme-${themeId}`;
                 
-                // Set character icon and logo with THEME-SPECIFIC messages
                 if (themeId === 'avengers') {
                     characterIcon.innerText = '🦸';
                     themeLogo.innerText = 'AVENGERS';
@@ -495,19 +473,19 @@
                     characterIcon.innerText = '🕷️';
                     themeLogo.innerText = 'SPIDER-MAN';
                     themeLogo.style.background = '#02458b';
-                    messageBox.innerText = '🕷️ With great math comes great responsibility, Lesedi!';
+                    messageBox.innerText = '🕷️ With great math comes great responsibility!';
                 }
-                else if (themeId === 'pawpatrol') {
-                    characterIcon.innerText = '🐾';
-                    themeLogo.innerText = 'PAW PATROL';
-                    themeLogo.style.background = '#f5b342';
-                    messageBox.innerText = '🐾 No job is too big, no pup is too small! Let\'s solve!';
+                else if (themeId === 'roblox') {
+                    characterIcon.innerText = '🎮';
+                    themeLogo.innerText = 'ROBLOX';
+                    themeLogo.style.background = '#cc0000';
+                    messageBox.innerText = '🎮 Level up your math skills, Lesedi!';
                 }
                 else if (themeId === 'minecraft') {
                     characterIcon.innerText = '⛏️';
                     themeLogo.innerText = 'MINECRAFT';
                     themeLogo.style.background = '#4caf50';
-                    messageBox.innerText = '⛏️ Craft your answers carefully, Lesedi!';
+                    messageBox.innerText = '⛏️ Craft your answers carefully!';
                 }
             }
 
@@ -547,7 +525,7 @@
                 streakDisplay.innerText = `🔥 ${streak}`;
             }
 
-            // Check answer with THEME-SPECIFIC messages
+            // Check answer with theme messages
             function checkAnswer() {
                 if (awaitingNext) {
                     messageBox.innerText = '👉 Press NEXT!';
@@ -573,19 +551,21 @@
                     streak++;
                     score++;
                     
-                    // THEME-SPECIFIC CORRECT MESSAGES
+                    // Theme-specific correct messages
                     let msg = '';
-                    if (currentTheme === 'avengers') msg = '✅ AVENGERS ASSEMBLE! Perfect!';
-                    else if (currentTheme === 'spider') msg = '✅ SPECTACULAR SPIDER-MATH!';
-                    else if (currentTheme === 'pawpatrol') msg = '✅ RUFF-RUFF! PAW-some answer!';
-                    else if (currentTheme === 'minecraft') msg = '✅ CRAFT-Y calculation! +1 emerald!';
+                    const theme = bodyEl.className.replace('theme-', '');
+                    
+                    if (theme === 'avengers') msg = '✅ AVENGERS ASSEMBLE! Perfect!';
+                    else if (theme === 'spider') msg = '✅ SPECTACULAR SPIDER-MATH!';
+                    else if (theme === 'roblox') msg = '✅ ROBLOX LEVEL UP! +100 points!';
+                    else if (theme === 'minecraft') msg = '✅ CRAFT-Y calculation! +1 emerald!';
                     
                     if (streak >= 3) {
                         if (soundsEnabled && streakSound) streakSound();
-                        if (currentTheme === 'avengers') msg += ' 🔥 AVENGERS LEVEL STREAK!';
-                        else if (currentTheme === 'spider') msg += ' 🔥 SPIDER-STREAK!';
-                        else if (currentTheme === 'pawpatrol') msg += ' 🔥 PAW-some streak!';
-                        else if (currentTheme === 'minecraft') msg += ' 🔥 DIAMOND STREAK!';
+                        if (theme === 'avengers') msg += ' 🔥 AVENGERS STREAK!';
+                        else if (theme === 'spider') msg += ' 🔥 SPIDER-STREAK!';
+                        else if (theme === 'roblox') msg += ' 🔥 ROBLOX PRO STREAK!';
+                        else if (theme === 'minecraft') msg += ' 🔥 DIAMOND STREAK!';
                     }
                     messageBox.innerText = msg;
                     
@@ -598,11 +578,13 @@
                     
                     streak = 0;
                     
-                    // THEME-SPECIFIC WRONG MESSAGES
-                    if (currentTheme === 'avengers') messageBox.innerText = '🤔 Even Hulk had to try again! Keep going!';
-                    else if (currentTheme === 'spider') messageBox.innerText = '🤔 My spider-sense says... try again!';
-                    else if (currentTheme === 'pawpatrol') messageBox.innerText = '🤔 Chase says: keep trying, pup!';
-                    else if (currentTheme === 'minecraft') messageBox.innerText = '🤔 Oops! Craft another answer!';
+                    // Theme-specific wrong messages
+                    const theme = bodyEl.className.replace('theme-', '');
+                    
+                    if (theme === 'avengers') messageBox.innerText = '🤔 Even Hulk had to try again!';
+                    else if (theme === 'spider') messageBox.innerText = '🤔 My spider-sense says... try again!';
+                    else if (theme === 'roblox') messageBox.innerText = '🤔 Game over? Try again! New level!';
+                    else if (theme === 'minecraft') messageBox.innerText = '🤔 Oops! Craft another answer!';
                     
                     answerInput.select();
                 }
