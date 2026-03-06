@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesedi's Math Game · with photo + sounds</title>
+    <title>Lesedi's REAL Theme Game · Avengers · Spider-Man · Paw Patrol · Minecraft</title>
     <style>
         * {
             margin: 0;
@@ -12,32 +12,125 @@
         }
 
         body {
-            background: #1a1f2f;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             font-family: 'Comic Sans MS', cursive, sans-serif;
             padding: 15px;
+            transition: all 0.3s;
         }
 
-        body.theme-avengers { background: radial-gradient(circle at 20% 30%, #1b294a 0%, #0a0f1f 100%); }
-        body.theme-spider { background: linear-gradient(145deg, #0a1f3b 0%, #2b1e3c 100%); }
-        body.theme-pawpatrol { background: linear-gradient(135deg, #3b9ae1 0%, #faca2e 100%); }
-        body.theme-minecraft { background: #6b4f3c; background-image: linear-gradient(rgba(140,200,80,0.2) 2px, transparent 2px), linear-gradient(90deg, rgba(140,200,80,0.2) 2px, transparent 2px); background-size: 40px 40px; }
+        /* ===== REAL THEMES ===== */
+        body.theme-avengers {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        body.theme-avengers::before {
+            content: "🦸 🦸 🦸";
+            font-size: 100px;
+            position: absolute;
+            opacity: 0.1;
+            transform: rotate(-15deg);
+            bottom: 10px;
+            right: 10px;
+        }
+        body.theme-avengers::after {
+            content: "⚡ ⚡ ⚡";
+            font-size: 80px;
+            position: absolute;
+            opacity: 0.1;
+            top: 20px;
+            left: 20px;
+            transform: rotate(10deg);
+        }
+
+        body.theme-spider {
+            background: linear-gradient(45deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            position: relative;
+        }
+        body.theme-spider::before {
+            content: "🕷️ 🕸️ 🕷️ 🕸️";
+            font-size: 70px;
+            position: absolute;
+            opacity: 0.2;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            transform: rotate(5deg);
+        }
+
+        body.theme-pawpatrol {
+            background: linear-gradient(135deg, #87CEEB 0%, #FFD700 100%);
+            position: relative;
+        }
+        body.theme-pawpatrol::before {
+            content: "🐾 🐾 🐾 🐾 🐾";
+            font-size: 60px;
+            position: absolute;
+            opacity: 0.2;
+            width: 100%;
+            text-align: center;
+            top: 30%;
+            transform: rotate(-5deg);
+        }
+        body.theme-pawpatrol::after {
+            content: "🐶 🐱 🐶 🐱";
+            font-size: 80px;
+            position: absolute;
+            opacity: 0.2;
+            bottom: 20%;
+            right: 10%;
+        }
+
+        body.theme-minecraft {
+            background: #8B5A2B;
+            background-image: 
+                linear-gradient(rgba(0, 255, 0, 0.1) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(0, 255, 0, 0.1) 2px, transparent 2px),
+                linear-gradient(rgba(139, 69, 19, 0.5) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139, 69, 19, 0.5) 1px, transparent 1px);
+            background-size: 40px 40px, 40px 40px, 20px 20px, 20px 20px;
+            position: relative;
+        }
+        body.theme-minecraft::before {
+            content: "⛏️ ⛏️ ⛏️";
+            font-size: 70px;
+            position: absolute;
+            opacity: 0.2;
+            bottom: 20px;
+            left: 20px;
+            transform: rotate(-10deg);
+        }
+        body.theme-minecraft::after {
+            content: "🟫 🟩 🟫 🟩";
+            font-size: 60px;
+            position: absolute;
+            opacity: 0.2;
+            top: 50px;
+            right: 30px;
+        }
 
         .game-box {
-            max-width: 850px;
+            max-width: 900px;
             width: 100%;
-            background: rgba(255, 240, 200, 0.95);
+            background: rgba(255, 240, 200, 0.97);
+            backdrop-filter: blur(5px);
             border-radius: 70px;
             box-shadow: 0 20px 0 #6a3e10, 0 30px 40px rgba(0,0,0,0.6);
             padding: 30px 25px 40px;
             border: 5px solid #ffb82e;
             text-align: center;
+            position: relative;
+            z-index: 100;
         }
 
-        /* sound activator - big and obvious */
+        /* sound activator */
         .sound-activator {
             background: #ff6b6b;
             color: white;
@@ -55,26 +148,48 @@
             50% { transform: scale(1.02); background: #ff4141; }
         }
 
+        /* theme buttons - each with unique style */
         .theme-chooser {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 25px;
         }
         .theme-btn {
-            padding: 8px 20px;
-            font-size: 1.4rem;
+            padding: 12px 25px;
+            font-size: 1.6rem;
             border-radius: 50px;
-            border: 4px solid #ffbb2e;
-            background: white;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 6px 0 #a7581c;
+            transition: 0.1s;
+            border: 4px solid white;
+        }
+        .theme-btn.avengers { 
+            background: #e23636; 
+            color: white;
+            text-shadow: 2px 2px 0 #000;
+            box-shadow: 0 6px 0 #962020;
+        }
+        .theme-btn.spider { 
+            background: #02458b; 
+            color: white;
+            text-shadow: 2px 2px 0 #000;
+            box-shadow: 0 6px 0 #012a54;
+        }
+        .theme-btn.paw { 
+            background: #f5b342; 
+            color: #1e3c72;
+            box-shadow: 0 6px 0 #b87d1f;
+        }
+        .theme-btn.minecraft { 
+            background: #4caf50; 
+            color: white;
+            box-shadow: 0 6px 0 #2e7d32;
         }
         .theme-btn:active { transform: translateY(5px); }
 
-        /* PHOTO AREA - SUPER CLEAR */
+        /* photo area */
         .photo-section {
             display: flex;
             align-items: center;
@@ -102,29 +217,38 @@
             object-fit: cover;
         }
 
-        .photo-instruction {
-            font-size: 1.8rem;
+        .photo-label {
+            font-size: 2rem;
             background: #2c3e50;
             color: white;
-            padding: 15px 25px;
+            padding: 15px 30px;
             border-radius: 50px;
             border: 4px solid #f1c40f;
         }
-        .photo-instruction small {
-            font-size: 1.2rem;
-            display: block;
-            color: #ffe066;
-        }
 
-        .theme-logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            background: #e62529;
-            color: white;
-            padding: 8px 30px;
+        /* theme logo with character */
+        .theme-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
             border-radius: 60px;
-            display: inline-block;
-            margin-bottom: 15px;
+        }
+        .character-icon {
+            font-size: 4rem;
+            filter: drop-shadow(2px 4px 4px black);
+        }
+        .theme-logo {
+            font-size: 3rem;
+            font-weight: bold;
+            padding: 10px 35px;
+            border-radius: 60px;
+            color: white;
+            text-shadow: 3px 3px 0 #000;
+            box-shadow: 0 8px 0 rgba(0,0,0,0.3);
         }
 
         .stats {
@@ -196,6 +320,7 @@
             border-radius: 50px;
             margin: 20px 0;
             border: 4px solid #3d9e4b;
+            min-height: 90px;
         }
         .next-btn {
             background: #2d7f9e;
@@ -208,37 +333,38 @@
             cursor: pointer;
         }
         .next-btn:disabled { opacity: 0.5; pointer-events: none; }
+        footer { margin-top: 20px; font-size: 1.8rem; color: #cc6d1c; }
     </style>
 </head>
 <body class="theme-avengers" id="mainBody">
     <div class="game-box">
-        <!-- BIG SOUND ACTIVATOR BUTTON - TAP THIS FIRST! -->
         <div class="sound-activator" id="soundButton">
-            🔊 TAP HERE FIRST FOR SOUND! 🔊
+            🔊 TAP HERE FOR SOUND! 🔊
         </div>
 
-        <!-- theme buttons -->
+        <!-- theme buttons with icons -->
         <div class="theme-chooser">
-            <button class="theme-btn" data-theme="avengers">🦸 Avengers</button>
-            <button class="theme-btn" data-theme="spider">🕷️ Spider-Man</button>
-            <button class="theme-btn" data-theme="pawpatrol">🐾 Paw Patrol</button>
-            <button class="theme-btn" data-theme="minecraft">⛏️ Minecraft</button>
+            <button class="theme-btn avengers" data-theme="avengers">🦸 AVENGERS</button>
+            <button class="theme-btn spider" data-theme="spider">🕷️ SPIDER-MAN</button>
+            <button class="theme-btn paw" data-theme="pawpatrol">🐾 PAW PATROL</button>
+            <button class="theme-btn minecraft" data-theme="minecraft">⛏️ MINECRAFT</button>
         </div>
 
-        <!-- PHOTO SECTION - WITH SIMPLE IMAGE TAG -->
+        <!-- photo section -->
         <div class="photo-section">
             <div class="photo-frame">
-                <!-- JUST THIS LINE - REPLACE WITH LESEDI'S PHOTO -->
                 <img src="lesedi-face.jpg" alt="Lesedi" id="lesediPhoto">
             </div>
-            <div class="photo-instruction">
-                👆 LESEDI'S PHOTO<br>
-                <small>Just save photo as "lesedi.jpg" in same folder</small>
+            <div class="photo-label">
+                LESEDI ⭐
             </div>
         </div>
 
-        <!-- theme logo -->
-        <div class="theme-logo" id="themeLogo">AVENGERS</div>
+        <!-- theme header with character and logo -->
+        <div class="theme-header">
+            <span class="character-icon" id="characterIcon">🦸</span>
+            <div class="theme-logo" id="themeLogo">AVENGERS</div>
+        </div>
 
         <!-- score -->
         <div class="stats">
@@ -257,30 +383,25 @@
             <button class="check-btn" id="checkBtn">✔️ OK</button>
         </div>
 
-        <div class="message" id="messageBox">🦸 Tap the sound button first!</div>
+        <div class="message" id="messageBox">🎮 Choose a theme to begin!</div>
         <button class="next-btn" id="nextBtn" disabled> ➡️ Next</button>
+        <footer>✨ each theme is special! ✨</footer>
     </div>
 
     <script>
         (function() {
-            // ----- SIMPLE SOUND SETUP -----
+            // Sounds (same as before)
             let soundsEnabled = false;
             const soundButton = document.getElementById('soundButton');
             
-            // Create audio contexts only after button click
-            let correctSound = null;
-            let wrongSound = null;
-            let streakSound = null;
+            let correctSound, wrongSound, streakSound;
 
             function enableSounds() {
                 if (soundsEnabled) return;
-                
                 try {
-                    // Create simple audio using Web Audio API
                     const AudioContext = window.AudioContext || window.webkitAudioContext;
                     const ctx = new AudioContext();
                     
-                    // Correct sound function
                     correctSound = function() {
                         const osc = ctx.createOscillator();
                         const gain = ctx.createGain();
@@ -294,7 +415,6 @@
                         osc.stop(ctx.currentTime + 0.3);
                     };
                     
-                    // Wrong sound function
                     wrongSound = function() {
                         const osc = ctx.createOscillator();
                         const gain = ctx.createGain();
@@ -308,7 +428,6 @@
                         osc.stop(ctx.currentTime + 0.25);
                     };
                     
-                    // Streak sound (two notes)
                     streakSound = function() {
                         const osc1 = ctx.createOscillator();
                         const gain1 = ctx.createGain();
@@ -333,15 +452,9 @@
                     
                     soundsEnabled = true;
                     soundButton.style.background = '#2ecc71';
-                    soundButton.innerHTML = '🔊 SOUNDS ARE READY! 🎉';
-                    soundButton.style.animation = 'none';
-                    
-                    // Resume audio context (required for Chrome)
+                    soundButton.innerHTML = '🔊 SOUNDS READY! 🎉';
                     if (ctx.state === 'suspended') ctx.resume();
-                    
-                } catch (e) {
-                    console.log('Sound error:', e);
-                }
+                } catch (e) {}
             }
 
             soundButton.addEventListener('click', enableSounds);
@@ -352,10 +465,12 @@
             let score = 0;
             let streak = 0;
             let awaitingNext = false;
+            let currentTheme = 'avengers';
 
             // DOM elements
             const bodyEl = document.getElementById('mainBody');
             const themeLogo = document.getElementById('themeLogo');
+            const characterIcon = document.getElementById('characterIcon');
             const questionEl = document.getElementById('questionText');
             const answerInput = document.getElementById('answerInput');
             const checkBtn = document.getElementById('checkBtn');
@@ -364,19 +479,39 @@
             const scoreDisplay = document.getElementById('scoreDisplay');
             const streakDisplay = document.getElementById('streakDisplay');
 
-            // Theme switching
+            // ===== REAL THEME DATA =====
             function applyTheme(themeId) {
+                currentTheme = themeId;
                 bodyEl.className = `theme-${themeId}`;
-                if (themeId === 'avengers') themeLogo.innerText = 'AVENGERS';
-                else if (themeId === 'spider') themeLogo.innerText = 'SPIDER-MAN';
-                else if (themeId === 'pawpatrol') themeLogo.innerText = 'PAW PATROL';
-                else if (themeId === 'minecraft') themeLogo.innerText = 'MINECRAFT';
                 
-                themeLogo.style.background = themeId === 'spider' ? '#e63946' : 
-                                            themeId === 'pawpatrol' ? '#f5d742' : 
-                                            themeId === 'minecraft' ? '#6b8f4c' : '#e62529';
+                // Set character icon and logo with THEME-SPECIFIC messages
+                if (themeId === 'avengers') {
+                    characterIcon.innerText = '🦸';
+                    themeLogo.innerText = 'AVENGERS';
+                    themeLogo.style.background = '#e23636';
+                    messageBox.innerText = '🦸 Assemble, Lesedi! Earth\'s mightiest math hero!';
+                }
+                else if (themeId === 'spider') {
+                    characterIcon.innerText = '🕷️';
+                    themeLogo.innerText = 'SPIDER-MAN';
+                    themeLogo.style.background = '#02458b';
+                    messageBox.innerText = '🕷️ With great math comes great responsibility, Lesedi!';
+                }
+                else if (themeId === 'pawpatrol') {
+                    characterIcon.innerText = '🐾';
+                    themeLogo.innerText = 'PAW PATROL';
+                    themeLogo.style.background = '#f5b342';
+                    messageBox.innerText = '🐾 No job is too big, no pup is too small! Let\'s solve!';
+                }
+                else if (themeId === 'minecraft') {
+                    characterIcon.innerText = '⛏️';
+                    themeLogo.innerText = 'MINECRAFT';
+                    themeLogo.style.background = '#4caf50';
+                    messageBox.innerText = '⛏️ Craft your answers carefully, Lesedi!';
+                }
             }
 
+            // Theme buttons
             document.querySelectorAll('.theme-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     applyTheme(e.target.dataset.theme);
@@ -412,7 +547,7 @@
                 streakDisplay.innerText = `🔥 ${streak}`;
             }
 
-            // Check answer
+            // Check answer with THEME-SPECIFIC messages
             function checkAnswer() {
                 if (awaitingNext) {
                     messageBox.innerText = '👉 Press NEXT!';
@@ -438,10 +573,19 @@
                     streak++;
                     score++;
                     
-                    let msg = '✅ CORRECT!';
+                    // THEME-SPECIFIC CORRECT MESSAGES
+                    let msg = '';
+                    if (currentTheme === 'avengers') msg = '✅ AVENGERS ASSEMBLE! Perfect!';
+                    else if (currentTheme === 'spider') msg = '✅ SPECTACULAR SPIDER-MATH!';
+                    else if (currentTheme === 'pawpatrol') msg = '✅ RUFF-RUFF! PAW-some answer!';
+                    else if (currentTheme === 'minecraft') msg = '✅ CRAFT-Y calculation! +1 emerald!';
+                    
                     if (streak >= 3) {
                         if (soundsEnabled && streakSound) streakSound();
-                        msg += ' 🔥 STREAK!';
+                        if (currentTheme === 'avengers') msg += ' 🔥 AVENGERS LEVEL STREAK!';
+                        else if (currentTheme === 'spider') msg += ' 🔥 SPIDER-STREAK!';
+                        else if (currentTheme === 'pawpatrol') msg += ' 🔥 PAW-some streak!';
+                        else if (currentTheme === 'minecraft') msg += ' 🔥 DIAMOND STREAK!';
                     }
                     messageBox.innerText = msg;
                     
@@ -453,7 +597,13 @@
                     if (soundsEnabled && wrongSound) wrongSound();
                     
                     streak = 0;
-                    messageBox.innerText = '🤔 Try again!';
+                    
+                    // THEME-SPECIFIC WRONG MESSAGES
+                    if (currentTheme === 'avengers') messageBox.innerText = '🤔 Even Hulk had to try again! Keep going!';
+                    else if (currentTheme === 'spider') messageBox.innerText = '🤔 My spider-sense says... try again!';
+                    else if (currentTheme === 'pawpatrol') messageBox.innerText = '🤔 Chase says: keep trying, pup!';
+                    else if (currentTheme === 'minecraft') messageBox.innerText = '🤔 Oops! Craft another answer!';
+                    
                     answerInput.select();
                 }
                 
