@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesedi's Avengers math mission · Year 2</title>
+    <title>Lesedi's Theme Math · Spider-Man · Paw Patrol · Minecraft</title>
     <style>
         * {
             margin: 0;
@@ -12,37 +12,39 @@
         }
 
         body {
-            /* dynamic Avengers background with abstract comic dots */
-            background: radial-gradient(circle at 20% 30%, #1b294a 0%, #0a0f1f 100%);
+            background: #1a1f2f;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             font-family: 'Comic Sans MS', 'Chalkboard SE', 'Segoe UI', cursive, sans-serif;
             padding: 15px;
-            position: relative;
-            overflow-x: hidden;
+            transition: background 0.4s;
         }
 
-        /* comic book background effects */
-        body::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-image: 
-                radial-gradient(circle at 10% 40%, rgba(255, 215, 0, 0.1) 2px, transparent 2px),
-                radial-gradient(circle at 95% 70%, rgba(255, 69, 0, 0.1) 3px, transparent 3px),
-                linear-gradient(45deg, rgba(255,255,255,0.02) 25%, transparent 25%);
-            background-size: 50px 50px, 80px 80px, 30px 30px;
-            pointer-events: none;
-            z-index: 0;
+        /* theme backgrounds will be toggled via js */
+        body.theme-avengers {
+            background: radial-gradient(circle at 20% 30%, #1b294a 0%, #0a0f1f 100%);
+        }
+        body.theme-spider {
+            background: linear-gradient(145deg, #0a1f3b 0%, #2b1e3c 100%), radial-gradient(circle at 70% 20%, #e63946 5px, transparent 5px);
+            background-blend-mode: overlay;
+        }
+        body.theme-pawpatrol {
+            background: linear-gradient(135deg, #3b9ae1 0%, #faca2e 100%);
+        }
+        body.theme-minecraft {
+            background: #6b4f3c;
+            background-image: linear-gradient(rgba(140, 200, 80, 0.2) 2px, transparent 2px),
+                              linear-gradient(90deg, rgba(140, 200, 80, 0.2) 2px, transparent 2px);
+            background-size: 40px 40px;
         }
 
         .game-box {
-            max-width: 750px;
+            max-width: 800px;
             width: 100%;
             background: rgba(255, 240, 200, 0.95);
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(5px);
             border-radius: 70px 70px 45px 45px;
             box-shadow: 0 20px 0 #6a3e10, 0 30px 40px rgba(0,0,0,0.6), 0 0 0 6px #ffc857;
             padding: 30px 25px 40px 25px;
@@ -50,9 +52,42 @@
             text-align: center;
             position: relative;
             z-index: 10;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        /* ----- AVENGERS / PHOTO ZONE ----- */
+        /* ----- THEME SELECTOR ROW ----- */
+        .theme-chooser {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .theme-btn {
+            padding: 10px 25px;
+            font-size: 1.6rem;
+            border-radius: 50px;
+            border: 4px solid #ffbb2e;
+            background: white;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #a7581c;
+            transition: 0.05s linear;
+            font-family: 'Comic Sans MS', cursive;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .theme-btn:active {
+            transform: translateY(5px);
+            box-shadow: 0 1px 0 #a7581c;
+        }
+        .theme-btn.spider { background: #e63946; color: white; text-shadow: 2px 2px 0 #540d13; }
+        .theme-btn.paw { background: #f5d742; color: #1e4f8a; }
+        .theme-btn.minecraft { background: #6b8f4c; color: white; text-shadow: 3px 3px 0 #2d471b; }
+        .theme-btn.avengers { background: #1f2c56; color: #f5c542; }
+
+        /* photo area same as before */
         .avengers-photo-bar {
             display: flex;
             align-items: center;
@@ -61,19 +96,11 @@
             border-radius: 120px;
             padding: 10px 15px 10px 10px;
             border: 5px solid #f5c542;
-            box-shadow: 0 8px 0 #b6560a, inset 0 2px 15px #ffd966;
+            box-shadow: 0 8px 0 #b6560a;
             margin-bottom: 25px;
             gap: 10px;
+            transition: all 0.3s;
         }
-
-        .photo-capsule {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
         .photo-frame {
             width: 95px;
             height: 95px;
@@ -82,43 +109,24 @@
             border: 6px solid #feda75;
             box-shadow: 0 0 0 5px #aa2b1d, 0 8px 0 #5c1e0f;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-image: linear-gradient(145deg, #ffcf9a, #fbb554);
-            transition: transform 0.2s;
         }
-
         .photo-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
         }
-
-        .avengers-logo {
-            font-size: 2.5rem;
+        .theme-logo {
+            font-size: 2.3rem;
             font-weight: bold;
             background: #e62529;
             color: white;
-            padding: 10px 25px;
+            padding: 8px 30px;
             border-radius: 60px;
             border: 4px solid #fed54b;
             text-shadow: 3px 3px 0 #750e10;
-            box-shadow: inset 0 -4px 0 #990f12, 0 7px 0 #541010;
-            font-family: 'Impact', 'Comic Sans MS', sans-serif;
-            letter-spacing: 2px;
             white-space: nowrap;
         }
 
-        .avengers-logo span {
-            font-size: 1.2rem;
-            display: block;
-            color: #fff2b5;
-            text-shadow: 2px 2px 0 #a14500;
-        }
-
-        /* stats area with marvel style */
         .stats {
             display: flex;
             justify-content: space-between;
@@ -127,22 +135,18 @@
             padding: 12px 25px;
             margin-bottom: 25px;
             border: 4px solid #f6b83e;
-            font-weight: bold;
             font-size: 1.8rem;
             color: #ffde9e;
-            box-shadow: 0 7px 0 #4d2b0f, inset 0 2px 10px #fce398;
+            box-shadow: 0 7px 0 #4d2b0f;
         }
-
         .score, .streak {
             background: #0d0628;
             padding: 8px 25px;
             border-radius: 40px;
             border: 3px solid #ffbb2e;
-            box-shadow: inset 0 0 8px #ffb44a;
             color: #ffe49e;
         }
 
-        /* question card */
         .question-card {
             background: #fee3a2;
             padding: 20px 15px;
@@ -151,21 +155,12 @@
             margin-bottom: 30px;
             box-shadow: 0 12px 0 #a63f0e, inset 0 -5px 15px #ffffbb;
         }
-
         .big-equation {
             font-size: 6rem;
             font-weight: 800;
             color: #1f3a3f;
             text-shadow: 5px 5px 0 #f5b457;
             line-height: 1.3;
-            word-break: break-word;
-        }
-
-        .big-equation span {
-            background: rgba(255, 240, 150, 0.6);
-            padding: 0 20px;
-            border-radius: 40px;
-            display: inline-block;
         }
 
         .input-area {
@@ -176,7 +171,6 @@
             margin: 15px 0 10px;
             align-items: center;
         }
-
         .answer-input {
             font-size: 3.5rem;
             width: 210px;
@@ -189,9 +183,7 @@
             padding: 5px 15px;
             outline: none;
             box-shadow: 0 9px 0 #a3510e, inset 0 2px 15px #ffc107;
-            font-family: 'Comic Sans MS', cursive;
         }
-
         .check-btn {
             background: #f04f30;
             border: none;
@@ -201,18 +193,12 @@
             font-weight: bold;
             color: white;
             text-shadow: 4px 4px 0 #8b280c;
-            box-shadow: 0 10px 0 #952d0c, 0 5px 20px #cf6f1a;
+            box-shadow: 0 10px 0 #952d0c;
             cursor: pointer;
             border: 4px solid #ffbc6e;
-            font-family: 'Comic Sans MS', cursive;
             transition: 0.06s linear;
         }
-
-        .check-btn:active {
-            transform: translateY(7px);
-            box-shadow: 0 3px 0 #952d0c;
-        }
-
+        .check-btn:active { transform: translateY(7px); box-shadow: 0 3px 0 #952d0c; }
         .message {
             font-size: 2.2rem;
             min-height: 5rem;
@@ -225,7 +211,6 @@
             font-weight: bold;
             box-shadow: inset 0 -4px 0 #6fa86f;
         }
-
         .next-btn {
             background: #2d7f9e;
             border: none;
@@ -239,44 +224,30 @@
             cursor: pointer;
             border: 4px solid #7ad0f0;
             margin-top: 10px;
-            font-family: 'Comic Sans MS', cursive;
             transition: 0.06s linear;
         }
-
-        .next-btn:active {
-            transform: translateY(6px);
-            box-shadow: 0 3px 0 #124f66;
-        }
-
-        .next-btn:disabled {
-            opacity: 0.5;
-            transform: none;
-            box-shadow: 0 5px 0 #124f66;
-            pointer-events: none;
-        }
-
-        footer {
-            margin-top: 25px;
-            font-size: 1.8rem;
-            color: #cc6d1c;
-            text-shadow: 2px 2px 0 #feda7a;
-        }
+        .next-btn:active { transform: translateY(6px); box-shadow: 0 3px 0 #124f66; }
+        .next-btn:disabled { opacity: 0.5; pointer-events: none; }
+        footer { margin-top: 25px; font-size: 1.8rem; color: #cc6d1c; }
     </style>
 </head>
-<body>
+<body class="theme-avengers" id="mainBody">
     <div class="game-box">
-        <!-- MARVEL + LESEDI'S PHOTO (custom photo area) -->
-        <div class="avengers-photo-bar">
-            <div class="photo-capsule">
-                <div class="photo-frame" id="lesediPhotoFrame">
-                    <!-- dynamic photo - default shows Lesedi placeholder, but you can replace src -->
-                    <img src="lesedi-face.jpg" alt="Lesedi's face">
-                </div>
-                <span style="color:white; font-size:2rem; text-shadow:3px 3px 0 #b8560a;">⚡</span>
+        <!-- theme switcher row -->
+        <div class="theme-chooser">
+            <button class="theme-btn avengers" data-theme="avengers">🦸 Avengers</button>
+            <button class="theme-btn spider" data-theme="spider">🕷️ Spider-Man</button>
+            <button class="theme-btn paw" data-theme="pawpatrol">🐾 Paw Patrol</button>
+            <button class="theme-btn minecraft" data-theme="minecraft">⛏️ Minecraft</button>
+        </div>
+
+        <!-- photo bar (logo changes with theme) -->
+        <div class="avengers-photo-bar" id="themeHeader">
+            <div class="photo-frame">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23f5d742' stroke='%23ff9f1c' stroke-width='4' /%3E%3Ccircle cx='35' cy='40' r='6' fill='%23231209' /%3E%3Ccircle cx='65' cy='40' r='6' fill='%23231209' /%3E%3Cpath d='M35 65 Q50 80,65 65' stroke='%238a4b1f' stroke-width='6' fill='none' stroke-linecap='round' /%3E%3Ctext x='28' y='94' font-size='18' fill='%23993333'%3E👦%3C/text%3E%3C/svg%3E"
+                     alt="Lesedi" id="lesediPhoto">
             </div>
-            <div class="avengers-logo">
-                MARVEL <span>THE AVENGERS</span>
-            </div>
+            <div class="theme-logo" id="themeLogo">AVENGERS</div>
         </div>
 
         <!-- score + streak -->
@@ -285,7 +256,7 @@
             <div class="streak" id="streakDisplay">🔥 0</div>
         </div>
 
-        <!-- main math area -->
+        <!-- math area -->
         <div class="question-card">
             <div class="big-equation" id="questionText">2 + 2</div>
         </div>
@@ -295,23 +266,94 @@
             <button class="check-btn" id="checkBtn">✔️ OK</button>
         </div>
 
-        <div class="message" id="messageBox">
-            🦸 Ready, Lesedi? Assemble!
-        </div>
-
-        <button class="next-btn" id="nextBtn" disabled> ➡️ Next mission</button>
-        <footer>✨ earth's mightiest math hero ✨</footer>
+        <div class="message" id="messageBox">🦸 Ready, Lesedi?</div>
+        <button class="next-btn" id="nextBtn" disabled> ➡️ Next</button>
+        <footer>⭐ choose your theme ⭐</footer>
     </div>
 
     <script>
         (function() {
-            // Lesedi's Avengers math game - with photo spot ready
+            // ----- sound effects using Web Audio API (gentle, no external files) -----
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            let audioCtx = null;
+
+            function initAudio() {
+                if (audioCtx) return;
+                audioCtx = new AudioContext();
+            }
+
+            function playCorrectSound() {
+                try {
+                    initAudio();
+                    if (!audioCtx) return;
+                    const now = audioCtx.currentTime;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.value = 880; // A5
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                    osc.connect(gain).connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                } catch (e) { /* mobile might need user interaction first */ }
+            }
+
+            function playWrongSound() {
+                try {
+                    initAudio();
+                    if (!audioCtx) return;
+                    const now = audioCtx.currentTime;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.value = 340;
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+                    osc.connect(gain).connect(audioCtx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.25);
+                } catch (e) {}
+            }
+
+            function playStreakSound() {
+                try {
+                    initAudio();
+                    if (!audioCtx) return;
+                    const now = audioCtx.currentTime;
+                    // little fanfare: two notes
+                    const osc1 = audioCtx.createOscillator();
+                    const gain1 = audioCtx.createGain();
+                    osc1.frequency.value = 1046.5; // C6
+                    gain1.gain.setValueAtTime(0.2, now);
+                    gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+                    osc1.connect(gain1).connect(audioCtx.destination);
+                    osc1.start(now);
+                    osc1.stop(now + 0.15);
+
+                    const osc2 = audioCtx.createOscillator();
+                    const gain2 = audioCtx.createGain();
+                    osc2.frequency.value = 1318.5; // E6
+                    gain2.gain.setValueAtTime(0.2, now + 0.1);
+                    gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+                    osc2.connect(gain2).connect(audioCtx.destination);
+                    osc2.start(now + 0.1);
+                    osc2.stop(now + 0.3);
+                } catch (e) {}
+            }
+
+            // Game state
             let currentQuestion = { text: '2 + 2', answer: 4 };
             let score = 0;
             let streak = 0;
             let awaitingNext = false;
             let firstLoad = true;
+            let currentTheme = 'avengers'; // default
 
+            // DOM elements
+            const bodyEl = document.getElementById('mainBody');
+            const themeLogo = document.getElementById('themeLogo');
+            const themeHeader = document.getElementById('themeHeader');
             const questionEl = document.getElementById('questionText');
             const answerInput = document.getElementById('answerInput');
             const checkBtn = document.getElementById('checkBtn');
@@ -320,31 +362,77 @@
             const scoreDisplay = document.getElementById('scoreDisplay');
             const streakDisplay = document.getElementById('streakDisplay');
 
-            // You can easily replace the profile photo — the img element is ready!
-            // For example, uncomment the next line if you have a file input or set src manually.
-            // document.getElementById('lesediPhoto').src = "lesedi_real_photo.jpg";  
+            // Theme definitions
+            const themes = {
+                avengers: {
+                    bodyClass: 'theme-avengers',
+                    logoText: 'AVENGERS',
+                    headerBg: 'linear-gradient(145deg, #1f2c56, #0e1a42)',
+                    borderColor: '#f5c542',
+                },
+                spider: {
+                    bodyClass: 'theme-spider',
+                    logoText: 'SPIDER-MAN',
+                    headerBg: 'linear-gradient(145deg, #2c0f1a, #1f2a44)',
+                    borderColor: '#e63946',
+                },
+                pawpatrol: {
+                    bodyClass: 'theme-pawpatrol',
+                    logoText: 'PAW PATROL',
+                    headerBg: 'linear-gradient(145deg, #3b9ae1, #faca2e)',
+                    borderColor: '#f55c3a',
+                },
+                minecraft: {
+                    bodyClass: 'theme-minecraft',
+                    logoText: 'MINECRAFT',
+                    headerBg: 'linear-gradient(145deg, #4f7a3b, #2b3d1c)',
+                    borderColor: '#8bae6d',
+                }
+            };
 
-            function refreshStatsUI() {
-                scoreDisplay.innerText = `🏆 ${score}`;
-                streakDisplay.innerText = `🔥 ${streak}`;
+            function applyTheme(themeId) {
+                currentTheme = themeId;
+                const theme = themes[themeId];
+                bodyEl.className = theme.bodyClass;
+                themeLogo.innerText = theme.logoText;
+                themeHeader.style.background = theme.headerBg;
+                themeHeader.style.borderColor = theme.borderColor;
+                // also change logo border maybe
+                document.querySelector('.theme-logo').style.background = 
+                    themeId === 'spider' ? '#e63946' : 
+                    themeId === 'pawpatrol' ? '#f5d742' : 
+                    themeId === 'minecraft' ? '#6b8f4c' : '#e62529';
             }
 
-            // Year 1–2 friendly random question (add/sub, no negative, 1–12 range)
+            // theme buttons
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const theme = e.target.dataset.theme;
+                    applyTheme(theme);
+                });
+            });
+
+            // Generate question (remains same)
             function generateRandomQuestion() {
                 const usePlus = Math.random() >= 0.5;
                 let a, b, ans;
                 if (usePlus) {
-                    a = Math.floor(Math.random() * 10) + 2;  // 2..11
-                    b = Math.floor(Math.random() * 8) + 2;   // 2..9  (sum between 4–20)
+                    a = Math.floor(Math.random() * 10) + 2; // 2-11
+                    b = Math.floor(Math.random() * 8) + 2;  // 2-9
                     ans = a + b;
                     return { text: `${a} + ${b}`, answer: ans };
                 } else {
-                    a = Math.floor(Math.random() * 8) + 6;    // 6..13
-                    b = Math.floor(Math.random() * (a - 2)) + 2;  // min 2, ensures diff at least 2
-                    if (a - b <= 0) b = a - 2;  // safety: keep positive diff
+                    a = Math.floor(Math.random() * 8) + 6;  // 6-13
+                    b = Math.floor(Math.random() * (a-2)) + 2; 
+                    if (a - b <= 0) b = a - 2;
                     ans = a - b;
                     return { text: `${a} - ${b}`, answer: ans };
                 }
+            }
+
+            function refreshStatsUI() {
+                scoreDisplay.innerText = `🏆 ${score}`;
+                streakDisplay.innerText = `🔥 ${streak}`;
             }
 
             function setNewQuestion() {
@@ -353,72 +441,71 @@
                 questionEl.innerText = newQ.text;
                 answerInput.value = '';
                 answerInput.focus();
-
                 awaitingNext = false;
                 nextBtn.disabled = true;
                 checkBtn.disabled = false;
-                checkBtn.style.opacity = '1';
-
                 if (firstLoad) {
-                    messageBox.innerHTML = '🦸 Ready, Lesedi? Assemble!';
+                    messageBox.innerHTML = '🦸 Ready, Lesedi?';
                     firstLoad = false;
                 } else {
-                    messageBox.innerHTML = '💪 new mission! type your number';
+                    messageBox.innerHTML = '✨ new challenge!';
                 }
             }
 
+            // answer checking with sounds
             function handleCheck() {
                 if (awaitingNext) {
-                    messageBox.innerHTML = '🌟 press NEXT for another challenge!';
+                    messageBox.innerHTML = '➡️ press NEXT for more fun!';
                     return;
                 }
-
-                const rawValue = answerInput.value.trim();
-                if (rawValue === '') {
-                    messageBox.innerHTML = '📝 write a number, hero!';
+                const raw = answerInput.value.trim();
+                if (raw === '') {
+                    messageBox.innerHTML = '🔢 type a number!';
                     return;
                 }
-                const num = Number(rawValue);
+                const num = Number(raw);
                 if (isNaN(num)) {
-                    messageBox.innerHTML = '❌ that’s not a number, try again!';
+                    messageBox.innerHTML = '❌ need a number, hero!';
                     return;
                 }
 
                 if (num === currentQuestion.answer) {
-                    // correct!
+                    // correct! play sound
+                    playCorrectSound();
                     streak += 1;
                     score += 1;
                     refreshStatsUI();
 
-                    const praise = [
-                        '✅ AVENGERS ASSEMBLE! correct!',
-                        '🎉 POW! right answer!',
-                        '⚡ SHIELD strike! perfect!',
-                        '🛡️ well done, Lesedi!',
-                        '💥 fantastic! +1🏆'
-                    ];
-                    const rand = praise[Math.floor(Math.random() * praise.length)];
-                    messageBox.innerHTML = `✅ ${rand}`;
-                    if (streak >= 3) messageBox.innerHTML += ' 🔥🔥🔥 superstreak!';
+                    let praise = '';
+                    if (currentTheme === 'spider') praise = '🕷️ SPECTACULAR! web-slinging math!';
+                    else if (currentTheme === 'pawpatrol') praise = '🐾 RUFF-RUFF! correct!';
+                    else if (currentTheme === 'minecraft') praise = '⛏️ CRAFT-Y answer! +1';
+                    else praise = '✅ AVENGERS ASSEMBLE!';
+
+                    messageBox.innerHTML = `✅ ${praise}`;
+                    
+                    if (streak >= 3) {
+                        playStreakSound(); // bonus fanfare
+                        messageBox.innerHTML += ' 🔥🔥 STREAK!';
+                    }
 
                     awaitingNext = true;
                     nextBtn.disabled = false;
                     checkBtn.disabled = true;
                 } else {
+                    playWrongSound();
                     streak = 0;
                     refreshStatsUI();
-                    messageBox.innerHTML = `🤔 not quite, Lesedi. try another number!`;
+                    messageBox.innerHTML = `🤔 try again, Lesedi!`;
                     answerInput.select();
                 }
             }
 
             function handleNext() {
-                if (awaitingNext) {
-                    setNewQuestion();
-                }
+                if (awaitingNext) setNewQuestion();
             }
 
-            // enter key in input triggers check
+            // Enter key
             answerInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
                     e.preventDefault();
@@ -429,24 +516,28 @@
             checkBtn.addEventListener('click', handleCheck);
             nextBtn.addEventListener('click', handleNext);
 
-            // limit input length (most answers ≤ 2 digits)
+            // limit input length
             answerInput.addEventListener('input', function() {
-                if (this.value.length > 2) this.value = this.value.slice(0, 2);
+                if (this.value.length > 2) this.value = this.value.slice(0,2);
             });
 
-            // start everything
+            // init first question & theme
             setNewQuestion();
             refreshStatsUI();
+            applyTheme('avengers');
 
-            // Explicitly allow parent to easily replace photo.
-            // The photo area now displays a cute default drawing, but you can set any image.
-            // Example: document.getElementById('lesediPhoto').src = 'my-son-pic.jpg';
-            // For demonstration, we keep the friendly face placeholder, but the code below
-            // shows how to swap if you have the file input (optional).
-            // You can right-click the photo frame and inspect to replace the src.
+            // Unlock audio on first user interaction (mobile browsers)
+            document.body.addEventListener('touchstart', function once() {
+                initAudio();
+                document.body.removeEventListener('touchstart', once);
+            }, { once: true });
+            document.body.addEventListener('click', function onceClick() {
+                initAudio();
+                document.body.removeEventListener('click', onceClick);
+            }, { once: true });
 
-            // To make it super easy: we add a tiny hidden instruction in console.
-            console.log("To put Lesedi's photo, replace the image src: document.getElementById('lesediPhoto').src = 'your-image.jpg' ;");
+            // Photo replacement instruction
+            console.log("Add Lesedi's photo: document.getElementById('lesediPhoto').src = 'your-image.jpg'");
         })();
     </script>
 </body>
