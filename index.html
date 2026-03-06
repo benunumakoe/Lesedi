@@ -3,121 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesedi's Math Game with Certificate</title>
+    <title>Lesedi's Math Game</title>
     <style>
-        /* ALL YOUR EXISTING STYLES PLUS THESE */
-        .certificate-popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1e3c72;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            padding: 20px;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 2000;
-            animation: fadeIn 0.5s;
+            overflow-y: auto;
         }
-        
-        .certificate-card {
-            background: white;
-            padding: 40px 30px;
-            border-radius: 80px;
-            border: 20px solid gold;
-            text-align: center;
-            max-width: 700px;
-            width: 90%;
-            box-shadow: 0 0 100px gold;
-            position: relative;
-            background-image: linear-gradient(135deg, #fff9e6, #fff0d0);
-        }
-        
-        .certificate-stars {
-            font-size: 3rem;
-            letter-spacing: 10px;
-            color: gold;
-        }
-        
-        .certificate-title {
-            font-size: 4rem;
-            color: #1e3c72;
-            margin: 10px 0;
-            text-shadow: 2px 2px 0 #ffd700;
-        }
-        
-        .certificate-to {
-            font-size: 2.5rem;
-            color: #555;
-        }
-        
-        .certificate-name {
-            font-size: 5rem;
-            color: #e23636;
-            margin: 10px 0;
-            border-bottom: 5px dashed gold;
-            border-top: 5px dashed gold;
-            padding: 15px;
-        }
-        
-        .certificate-points {
-            font-size: 6rem;
-            color: gold;
-            text-shadow: 3px 3px 0 #b8860b;
-            margin: 15px 0;
-        }
-        
-        .certificate-footer {
-            font-size: 2rem;
-            color: #2c3e50;
-            margin: 20px 0 15px;
-        }
-        
-        .certificate-print {
-            background: #4caf50;
-            color: white;
-            font-size: 2rem;
-            padding: 15px 40px;
-            border-radius: 50px;
-            border: none;
-            margin: 10px;
-            cursor: pointer;
-            box-shadow: 0 6px 0 #2e7d32;
-        }
-        
-        .certificate-close {
-            background: #f04f30;
-            color: white;
-            font-size: 2rem;
-            padding: 15px 40px;
-            border-radius: 50px;
-            border: none;
-            margin: 10px;
-            cursor: pointer;
-            box-shadow: 0 6px 0 #952d0c;
-        }
-        
-        .certificate-btn {
-            background: gold;
-            font-size: 1.8rem;
-            padding: 10px 25px;
-            border-radius: 50px;
-            border: 4px solid orange;
-            margin-top: 15px;
-            cursor: pointer;
-            font-weight: bold;
+
+        .game-box {
+            max-width: 800px;
             width: 100%;
+            background: #fff9e6;
+            border-radius: 50px;
+            padding: 30px 25px;
+            border: 5px solid #ffb82e;
+            box-shadow: 0 20px 0 #6a3e10;
         }
+
+        .sound-button {
+            background: #ff6b6b;
+            color: white;
+            font-size: 2rem;
+            padding: 15px;
+            border-radius: 60px;
+            border: 5px solid yellow;
+            margin-bottom: 20px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+        }
+        .sound-button.ready { background: #2ecc71; }
+
+        .theme-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        .theme-btn {
+            padding: 12px 20px;
+            font-size: 1.4rem;
+            border-radius: 50px;
+            border: 4px solid white;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            flex: 1 1 auto;
+            min-width: 140px;
+        }
+        .avengers-btn { background: #e23636; }
+        .spider-btn { background: #02458b; }
+        .roblox-btn { background: #cc0000; }
+        .minecraft-btn { background: #4caf50; }
+
+        .photo-area {
+            background: #ffd966;
+            padding: 15px;
+            border-radius: 100px;
+            border: 5px solid #e67e22;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .photo-frame {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 8px solid #f39c12;
+            background: white;
+            overflow: hidden;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-text {
+            font-size: 2.2rem;
+            background: #2c3e50;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            border: 4px solid #f1c40f;
+        }
+
+        .theme-show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 60px;
+        }
+        .theme-icon { font-size: 3.5rem; }
+        .theme-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            padding: 8px 30px;
+            border-radius: 60px;
+            color: white;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            background: #2b2155;
+            border-radius: 50px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            color: #ffde9e;
+            font-size: 1.8rem;
+        }
+        .stat-box {
+            background: #0d0628;
+            padding: 8px 25px;
+            border-radius: 40px;
+            border: 3px solid #ffbb2e;
+        }
+
+        .question-box {
+            background: #fee3a2;
+            padding: 20px;
+            border-radius: 120px;
+            border: 6px solid #ff8321;
+            margin-bottom: 30px;
+            box-shadow: 0 12px 0 #a63f0e;
+        }
+        .question-text {
+            font-size: 5rem;
+            font-weight: 800;
+            color: #1f3a3f;
+            text-align: center;
+        }
+
+        .input-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .number-input {
+            font-size: 3rem;
+            width: 180px;
+            text-align: center;
+            border: 6px solid #ff7b2b;
+            border-radius: 70px;
+            background: #fefad0;
+            padding: 5px;
+        }
+        .ok-button {
+            background: #f04f30;
+            font-size: 2.5rem;
+            padding: 12px 35px;
+            border-radius: 60px;
+            color: white;
+            border: none;
+            box-shadow: 0 10px 0 #952d0c;
+            cursor: pointer;
+        }
+
+        .message-area {
+            font-size: 2rem;
+            padding: 15px;
+            background: #c2e0c2;
+            border-radius: 50px;
+            margin: 20px 0;
+            border: 4px solid #3d9e4b;
+            min-height: 80px;
+        }
+        .next-button {
+            background: #2d7f9e;
+            font-size: 2.2rem;
+            padding: 12px 40px;
+            border-radius: 60px;
+            color: white;
+            border: none;
+            box-shadow: 0 9px 0 #124f66;
+            cursor: pointer;
+        }
+        .next-button:disabled { opacity: 0.5; }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        
-        @keyframes confetti {
-            0% { transform: translateY(0) rotate(0); }
-            100% { transform: translateY(100vh) rotate(720deg); }
-        }
+        /* NO CERTIFICATE BUTTON AT ALL - CLEAN AND SIMPLE */
     </style>
 </head>
 <body>
@@ -167,12 +255,11 @@
         <div class="message-area" id="messageBox">Welcome Lesedi! 👋</div>
         <button class="next-button" id="nextBtn" disabled>➡️ NEXT</button>
         
-        <!-- CERTIFICATE BUTTON (optional) -->
-        <button class="certificate-btn" onclick="showCertificate()">🏆 CLAIM YOUR CERTIFICATE 🏆</button>
+        <!-- NO CERTIFICATE BUTTON - JUST CLEAN MATH GAME -->
     </div>
 
     <script>
-        // ALL YOUR EXISTING SCRIPT CODE HERE...
+        // SOUND SETUP
         let soundEnabled = false;
         let audioCtx = null;
         
@@ -303,36 +390,7 @@
             checkBtn.disabled = false;
         }
 
-        // ===== CERTIFICATE FUNCTION =====
-        window.showCertificate = function() {
-            // Get current theme colors
-            const themeColor = themeTitle.style.background;
-            
-            // Create certificate HTML
-            const certificateHTML = `
-                <div class="certificate-popup" onclick="if(event.target===this) this.remove()">
-                    <div class="certificate-card">
-                        <div class="certificate-stars">⭐ ⭐ ⭐</div>
-                        <h1 class="certificate-title">🏆 CERTIFICATE OF EXCELLENCE 🏆</h1>
-                        <p class="certificate-to">Presented to</p>
-                        <h2 class="certificate-name">LESEDI</h2>
-                        <p class="certificate-to">For achieving</p>
-                        <div class="certificate-points">${score} POINTS!</div>
-                        <p class="certificate-footer">⭐ Math Superstar ⭐</p>
-                        <p style="font-size: 1.8rem; color: ${themeColor}; margin: 10px 0;">${themeTitle.innerText} CHAMPION!</p>
-                        <div>
-                            <button class="certificate-print" onclick="window.print()">🖨️ PRINT</button>
-                            <button class="certificate-close" onclick="this.closest('.certificate-popup').remove()">✖️ CLOSE</button>
-                        </div>
-                        <p style="font-size: 1.2rem; color: gray; margin-top: 15px;">${new Date().toLocaleDateString()}</p>
-                    </div>
-                </div>
-            `;
-            
-            document.body.insertAdjacentHTML('beforeend', certificateHTML);
-        };
-
-        // CHECK ANSWER WITH CERTIFICATE CHECK
+        // CHECK ANSWER
         checkBtn.onclick = function() {
             if (waitingForNext) {
                 messageEl.innerText = '👉 Press NEXT!';
@@ -366,11 +424,6 @@
                 
                 scoreEl.innerText = '🏆 ' + score;
                 streakEl.innerText = '🔥 ' + streak;
-                
-                // CHECK FOR 100 POINTS CERTIFICATE
-                if (score === 100 || score === 200 || score === 500) {
-                    setTimeout(showCertificate, 500);
-                }
                 
                 waitingForNext = true;
                 nextBtn.disabled = false;
